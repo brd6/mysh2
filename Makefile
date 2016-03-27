@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Sun Mar 27 03:49:41 2016 Berdrigue BONGOLO BETO
+## Last update Sun Mar 27 16:21:49 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -21,6 +21,8 @@ SRCS	= 	src/main.c \
 		src/utils.c \
 		src/check_valid_line.c \
 		src/parser_checker.c \
+		src/parser_errors.c \
+		src/parser_checker2.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 
