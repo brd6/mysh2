@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Fri Oct 16 01:07:43 2015 berdrigue bongolo-beto
-## Last update Sun Mar 27 03:05:48 2016 Berdrigue BONGOLO BETO
+## Last update Mon Mar 28 22:29:44 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc
@@ -28,6 +28,7 @@ SRCS	=	./convert_base.c \
 		./my_add_list_to_list.c \
 		./my_apply_elm_eq_in_list2.c \
 		./my_apply_elm_eq_in_list.c \
+		./my_apply_on_rev_list2.c \
 		./my_apply_on_list2.c \
 		./my_apply_on_list.c \
 		./my_atoi.c \
@@ -113,7 +114,6 @@ SRCS	=	./convert_base.c \
 		./stack_top.c \
 		./init_file.c \
 		./file.c \
-		./my_eput_str.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 

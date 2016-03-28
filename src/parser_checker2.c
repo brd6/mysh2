@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 17:18:26 2016 Berdrigue BONGOLO BETO
+** Last update Mon Mar 28 22:19:43 2016 Berdrigue BONGOLO BETO
 */
 
+#include "my.h"
 #include "parser.h"
 
 static void	set_nb_quote(int *end_char_cp, char c)
@@ -26,11 +27,9 @@ int		check_next_operator(char *line)
 {
   if (line[0] != 0 && my_get_char_pos(OPS, line[0]) != -1)
     {
-      if (my_get_char_pos(OPS, line[1]) == -1 ||
-	  (my_get_char_pos(OPS, line[1]) != -1 && line[0] != line[1]))
-	return (1);
-      else if (my_get_char_pos(&OPS[2], line[1]) != -1 && line[0] == line[1])
+      if (my_get_char_pos(&OPS[2], line[1]) != -1 && line[0] == line[1])
 	return (2);
+      return (1);
     }
   return (-1);
 }

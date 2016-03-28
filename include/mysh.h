@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 00:32:07 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 00:24:08 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -47,6 +47,9 @@ void		free_mysh(t_mysh *mysh);
 void		sig_handler_sigint(int code);
 int		check_null_line(char *line);
 int		check_valid_line(char *line);
+char		*epur_str(char *str, char *to_remove, int replace_with_space);
+
+int		env_key_exist(t_list *my_env, char *key);
 
 /*
 ** builtins

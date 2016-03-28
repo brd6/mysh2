@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 18:07:25 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 00:28:24 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -44,50 +44,37 @@ char		*extract_command(char *line)
   return (cmd);
 }
 
-
-void		show_list2(t_list2 *begin)
+char		*get_str_cmd(char *str, int end_pos)
 {
-  t_list2	*curr;
-  t_parser	*parser;
-
-  curr = begin;
-  while (curr)
-    {
-      parser = ((t_parser *)(curr->data));
-      printf("%s (%d)\n", parser->token, parser->type);
-      curr = curr->next;
-    }
-  my_putstr("\n");
-}
-
-void		add_to_cmd_list(t_list2 **list,
-				char *str,
-				int end_pos,
-				int type)
-{
-  int		i;
   char		*str_cmd;
-  t_parser	*parser;
 
   if ((str_cmd = malloc(sizeof(*str_cmd) * (my_strlen(str) + 1))) == NULL)
     exit_on_error("Malloc error\n");
   my_strncpy(str_cmd, str, end_pos);
-  if ((parser = malloc(sizeof(*parser))) == NULL)
-    exit_on_error("Malloc error\n");
-  parser->type = type;
-  parser->token = my_strdup(str_cmd);
-  my_add_elem_in_list2_end(list, parser);
-  show_list2(*list);
+  return (str_cmd);
 }
 
-static int	skip_char(char *str, char *s)
+void		add_to_cmd_list(t_list2 **list,
+				char *str,
+				int type)
 {
-  int		i;
+  t_parser	*parser;
+  t_parser	*parser_tmp;
 
-  i = 0;
-  while (my_get_char_pos(s, str[i]) != -1)
-    i++;
-  return (i);
+  if ((parser = malloc(sizeof(*parser))) == NULL)
+    exit_on_error("Malloc error\n");
+  if (*list != NULL && (type == TOKEN_COMMAND || type == TOKEN_OPTION))
+    {
+      parser_tmp = ((t_parser *)((*list)->data));
+      if (parser_tmp->type == TOKEN_COMMAND || parser_tmp->type == TOKEN_OPTION)
+      	parser->type = TOKEN_OPTION;
+      else
+  	parser->type = type;
+    }
+  else
+    parser->type = type;
+  parser->token = my_strdup(str);
+  my_add_elem_in_list2_begin(list, parser);
 }
 
 int		check_valid_line(char *line)
@@ -95,38 +82,62 @@ int		check_valid_line(char *line)
   int		i;
   char		**tab_line;
   t_list2	*list;
-  int		token_type;
+  int		ttype;
   int		j;
+  char		*str_cmd;
+  t_parser	*parser;
 
   i = 0;
-  line = my_epur_str(line, " \t", 1);
-  line = my_epur_str(line, ";", 0);
-  line = my_epur_str(line, " \t", 1);
-  /* printf("'%s' => '%s'\n", line, extract_command(line)); */
+  /* line = my_epur_str(line, " \t", 1); */
+  /* line = my_epur_str(line, ";", 0); */
+  /* line = my_epur_str(line, " \t", 1); */
   list = NULL;
   j = 0;
+  str_cmd = NULL;
   while (line[i])
     {
-      if ((j = check_next_operator(&line[i])) > -1)
-	{
-	  /* printf("operator: '%s' (%d)\n", &line[i], i + j); */
-	  add_to_cmd_list(&list, &line[i], j, TOKEN_OPERATOR);
-	}
-      else if ((j = check_next_command(&line[i])) > -1)
-	{
-	  /* printf("command: '%s' (%d)\n", &line[i], i + j); */
-	  add_to_cmd_list(&list, &line[i], j, TOKEN_COMMAND);
-	}
-      /* printf("=> %d\n", (j = check_next_operator(&line[i]))); */
-      /* printf("=> %d\n", (j = check_next_command(&line[i])) + i); */
+      if (((j = check_next_operator(&line[i])) > -1 &&
+	  ((ttype = TOKEN_OPERATOR))) ||
+	  (j = check_next_command(&line[i])) > -1 &&
+	  ((ttype = TOKEN_COMMAND)))
+	str_cmd = get_str_cmd(&line[i], j);
       if (j == -2)
-	break;
+	return (0);
       if (j > 0)
-	i = i + j;
+	{
+	  if (ttype == TOKEN_OPERATOR && !check_str_operator(list, str_cmd))
+	    {
+	      return (0);
+	    }
+	  add_to_cmd_list(&list, str_cmd, ttype);
+	  i = i + j;
+	}
       else
 	i++;
     }
-  show_list2(list);
-  free(line);
-  return (0);
+  /* my_printf("\n"); */
+  /* my_apply_on_rev_list2(list, print_list2_handler); */
+  /* free(line); */
+
+  // last check redirection / ??
+  if (list != NULL)
+    {
+      parser = (t_parser *)(list->data);
+      if (parser->type == TOKEN_OPERATOR)
+	{
+	  if (my_get_char_pos(&OPS[2], parser->token[0]) != -1) /* pour bonus: utiliser is_operators */
+	    return (my_puterr(ERROR_2), 0);
+	  else if (list->next != NULL)
+	    {
+	      parser = (t_parser *)(list->next->data);
+	      if (my_get_char_pos(&OPS[2], parser->token[0]) != -1)
+		return (my_puterr(ERROR_2), 0);
+	    }
+	  parser = (t_parser *)(list->data);
+	  if (!my_strcmp(parser->token, OP_PIPE))
+	    return (my_puterr(ERROR_1), 0);
+	  /* printf("__ '%s'\n", parser->token); */
+	}
+    }
+  return (1);
 }

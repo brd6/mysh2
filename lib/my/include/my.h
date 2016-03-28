@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Oct 16 01:09:57 2015 berdrigue bongolo-beto
-** Last update Sun Mar 27 01:55:28 2016 Berdrigue BONGOLO BETO
+** Last update Mon Mar 28 22:32:05 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MY_H_
@@ -69,5 +69,4 @@ void	my_free_wordtab(char **);
 char	*my_wordtab_search(char **, char *data, int (*cmp)());
 char	*my_getstr_key(char *str, char separator);
 char	*my_getstr_value(char *str, char separator);
-char	*my_epur_str(char *str, char *to_remove, int replace_with_space);
 #endif /* !MY_H_ */

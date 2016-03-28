@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Feb 21 22:52:28 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:54:06 2016 Berdrigue BONGOLO BETO
+** Last update Mon Mar 28 19:07:42 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -14,17 +14,22 @@
 int		my_add_elem_in_list2_end(t_list2 **begin, void *data)
 {
   t_list2	*curr;
+  t_list2	*new;
 
-  curr = *begin;
-  if (curr == NULL)
-    return (my_add_elem_in_list2_begin(begin, data));
-  while (curr->next)
-    curr = curr->next;
-  curr->next = malloc(sizeof(*curr));
-  if (curr->next == NULL)
+  if ((new = malloc(sizeof(*new))) == NULL)
     return (0);
-  curr->next->prev = curr;
-  curr->next->data = data;
-  curr->next->next = NULL;
+  new->data = data;
+  new->next = NULL;
+  new->prev = NULL;
+  if (*begin == NULL)
+    {
+      *begin = new;
+      return (1);
+    }
+  curr = *begin;
+  while (curr->next != NULL)
+    curr = curr->next;
+  curr->next = new;
+  new->prev = curr;
   return (1);
 }

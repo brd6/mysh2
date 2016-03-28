@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 03:14:38 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 00:22:20 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -28,22 +28,20 @@ int		option_handler(t_mysh *mysh, char **av)
 
 void		show_prompt(t_mysh *mysh)
 {
-  /* char		*env_pwd; */
+  char		*env_pwd;
 
-  /* if ( mysh->bonus == 1) */
-  /*   prompt_bonus(mysh); */
-  /* else if (env_key_exist(mysh->my_env, "PWD") && */
-  /*      (env_pwd = key_to_value(mysh->my_env, "PWD"))) */
-  /*   { */
-  /*     prompt = my_str_replace("%s", env_pwd, "%s> ", 1); */
-  /*     my_putstr(prompt); */
-  /*     free(env_pwd); */
-  /*   } */
-  /* else */
-  /*   { */
+  if (env_key_exist(mysh->my_env, "PWD") &&
+      (env_pwd = key_to_value(mysh->my_env, "PWD")))
+    {
+      g_prompt = my_str_replace("%s", env_pwd, "%s> ", 1);
+      my_putstr(g_prompt);
+      free(env_pwd);
+    }
+  else
+    {
       g_prompt = my_strdup("$> ");
       my_putstr(g_prompt);
-  /*   } */
+    }
 }
 
 void		mysh_loop(t_mysh *mysh)

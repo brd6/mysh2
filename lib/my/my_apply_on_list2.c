@@ -5,13 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Feb 22 00:58:16 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:55:20 2016 Berdrigue BONGOLO BETO
+** Last update Mon Mar 28 19:39:38 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "mylist.h"
 
-int		my_apply_on_list2(t_list2 *begin, void (*f)(void*))
+int		my_apply_on_list2(t_list2 *begin, void (*f)(void *))
 {
   t_list2	*curr;
 
