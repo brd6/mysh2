@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 00:28:24 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 10:50:01 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -115,8 +115,6 @@ int		check_valid_line(char *line)
       else
 	i++;
     }
-  /* my_printf("\n"); */
-  /* my_apply_on_rev_list2(list, print_list2_handler); */
   /* free(line); */
 
   // last check redirection / ??
@@ -139,5 +137,7 @@ int		check_valid_line(char *line)
 	  /* printf("__ '%s'\n", parser->token); */
 	}
     }
+  my_apply_on_rev_list2(list, print_list2_handler);
+
   return (1);
 }

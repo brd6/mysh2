@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 00:22:20 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 13:15:39 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -15,34 +15,6 @@
 #include "mysh.h"
 
 char		*g_prompt;
-
-int		option_handler(t_mysh *mysh, char **av)
-{
-  /* if (!my_strcmp(av[1], "--help")) */
-  /*   { */
-  /*     builtin_help(mysh, av); */
-  /*     return (0); */
-  /*   } */
-  /* return (1); */
-}
-
-void		show_prompt(t_mysh *mysh)
-{
-  char		*env_pwd;
-
-  if (env_key_exist(mysh->my_env, "PWD") &&
-      (env_pwd = key_to_value(mysh->my_env, "PWD")))
-    {
-      g_prompt = my_str_replace("%s", env_pwd, "%s> ", 1);
-      my_putstr(g_prompt);
-      free(env_pwd);
-    }
-  else
-    {
-      g_prompt = my_strdup("$> ");
-      my_putstr(g_prompt);
-    }
-}
 
 void		mysh_loop(t_mysh *mysh)
 {
@@ -58,8 +30,11 @@ void		mysh_loop(t_mysh *mysh)
       if (!check_null_line(line))
 	break;
       // check_correct_line
-      check_valid_line(line);
-      // record command in history list
+      if (!is_space_str(line))
+	{
+	  check_valid_line(line);
+	  // record command in history list
+	}
       free(line);
     }
   free(line);
@@ -69,10 +44,10 @@ int		main(int ac, char **av, char **envn)
 {
   t_mysh	mysh;
 
+  (void)(ac);
+  (void)(av);
   signal(SIGINT, sig_handler_sigint);
   mysh.exit_code = 0;
-  if (ac == 2 && !option_handler(&mysh, av))
-    return (0);
   if (envn == NULL || envn[0] == 0)
     mysh.my_env = NULL;
   else

@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 00:08:58 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 03:13:46 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 10:47:28 2016 Berdrigue BONGOLO BETO
 */
 
+#include <stdlib.h>
 #include "mylist.h"
 #include "mysh.h"
 

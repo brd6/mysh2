@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Tue Mar 29 00:21:07 2016 Berdrigue BONGOLO BETO
+## Last update Tue Mar 29 13:08:55 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -26,6 +26,7 @@ SRCS	= 	src/main.c \
 		src/list_utils.c \
 		src/env_util.c \
 		src/env_util2.c \
+		src/prompt.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 

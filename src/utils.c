@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 00:54:30 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 21 01:31:35 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 10:43:54 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -17,6 +17,22 @@ int		check_null_line(char *line)
     {
       my_putstr("exit\n");
       return (0);
+    }
+  return (1);
+}
+
+int		is_space_str(char *str)
+{
+  int		i;
+
+  i = 0;
+  if (str == NULL)
+    return (1);
+  while (str[i])
+    {
+      if (str[i] != ' ')
+	return (0);
+      i++;
     }
   return (1);
 }

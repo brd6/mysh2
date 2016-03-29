@@ -5,9 +5,10 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 15:44:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Mar 27 17:37:09 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 10:48:05 2016 Berdrigue BONGOLO BETO
 */
 
+#include <stdlib.h>
 #include "my.h"
 #include "parser.h"
 
