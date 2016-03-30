@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 28 22:19:43 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 15:12:23 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -56,7 +56,7 @@ int		check_next_command(char *line)
   while (line[i])
     {
       set_nb_quote(end_cp, line[i]);
-      if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
+      if ((end_char == ' ' && my_get_char_pos(OPS, line[i]) != -1) ||
 	  line[i] == end_char && (line[i + 1] == 0 || line[i + 1] != end_char))
 	{
 	  if (end_char != ' ')

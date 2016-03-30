@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Fri Oct 16 01:07:43 2015 berdrigue bongolo-beto
-## Last update Mon Mar 28 22:29:44 2016 Berdrigue BONGOLO BETO
+## Last update Tue Mar 29 16:55:41 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc
@@ -71,6 +71,7 @@ SRCS	=	./convert_base.c \
 		./my_rm_all_eq_from_list2.c \
 		./my_rm_all_eq_from_list.c \
 		./my_rm_elem_in_list2_end.c \
+		./my_rm_elem_in_list2_begin.c \
 		./my_rm_elem_in_list_end.c \
 		./my_rm_el_from_list2.c \
 		./my_rm_el_from_list.c \

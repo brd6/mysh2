@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 10:50:01 2016 Berdrigue BONGOLO BETO
+** Last update Wed Mar 30 11:48:16 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -63,16 +63,26 @@ void		add_to_cmd_list(t_list2 **list,
 
   if ((parser = malloc(sizeof(*parser))) == NULL)
     exit_on_error("Malloc error\n");
-  if (*list != NULL && (type == TOKEN_COMMAND || type == TOKEN_OPTION))
+  if (*list != NULL && (type == TOKEN_COMMAND || type == TOKEN_OPTION) &&
+      (parser_tmp = ((t_parser *)((*list)->data))) &&
+      (parser_tmp->type == TOKEN_COMMAND || parser_tmp->type == TOKEN_OPTION))
     {
-      parser_tmp = ((t_parser *)((*list)->data));
-      if (parser_tmp->type == TOKEN_COMMAND || parser_tmp->type == TOKEN_OPTION)
-      	parser->type = TOKEN_OPTION;
-      else
-  	parser->type = type;
+      parser->type = TOKEN_OPTION;
     }
   else
     parser->type = type;
+
+  // check useless ;
+  if (*list != NULL)
+    {
+      parser_tmp = ((t_parser *)((*list)->data));
+      if (type == TOKEN_OPERATOR && parser_tmp != NULL &&
+	  str[0] == OP_AND[0] && parser_tmp->token[0] == OP_AND[0])
+	{
+	  free(parser);
+	  return;
+	}
+    }
   parser->token = my_strdup(str);
   my_add_elem_in_list2_begin(list, parser);
 }
@@ -88,19 +98,18 @@ int		check_valid_line(char *line)
   t_parser	*parser;
 
   i = 0;
-  /* line = my_epur_str(line, " \t", 1); */
-  /* line = my_epur_str(line, ";", 0); */
-  /* line = my_epur_str(line, " \t", 1); */
   list = NULL;
   j = 0;
   str_cmd = NULL;
   while (line[i])
     {
       if (((j = check_next_operator(&line[i])) > -1 &&
-	  ((ttype = TOKEN_OPERATOR))) ||
+	   ((ttype = TOKEN_OPERATOR))) ||
 	  (j = check_next_command(&line[i])) > -1 &&
 	  ((ttype = TOKEN_COMMAND)))
-	str_cmd = get_str_cmd(&line[i], j);
+	{
+	  str_cmd = get_str_cmd(&line[i], j);
+	}
       if (j == -2)
 	return (0);
       if (j > 0)
@@ -115,7 +124,6 @@ int		check_valid_line(char *line)
       else
 	i++;
     }
-  /* free(line); */
 
   // last check redirection / ??
   if (list != NULL)
@@ -137,7 +145,10 @@ int		check_valid_line(char *line)
 	  /* printf("__ '%s'\n", parser->token); */
 	}
     }
+  // delete unless ; in list's end
+  parser = (t_parser *)(list->data);
+  if (parser->token[0] == OP_AND[0])
+    my_rm_elem_in_list2_begin(&list);
   my_apply_on_rev_list2(list, print_list2_handler);
-
   return (1);
 }

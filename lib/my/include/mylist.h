@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Oct 12 09:29:09 2015 berdrigue bongolo-beto
-** Last update Mon Mar 28 19:49:01 2016 Berdrigue BONGOLO BETO
+** Last update Tue Mar 29 16:55:13 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYLIST_H_
@@ -74,7 +74,8 @@ void		my_free_list2(t_list2 **begin);
 t_list2		*my_list2_copy(t_list2 *begin);
 t_list2		*my_list2_rev_copy(t_list2 *begin);
 void		my_apply_elm_eq_in_list2(t_list2 *, int (*)(), void *,
-					int (*)());
+					 int (*)());
 void		my_add_list_to_list2(t_list2 **begin1, t_list2 *begin2);
 int		my_apply_on_rev_list2(t_list2 *begin, void (*f)(void *));
+void		my_rm_elem_in_list2_begin(t_list2 **begin);
 #endif /* !MYLIST_H_ */

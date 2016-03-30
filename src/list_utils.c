@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 28 19:37:16 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 28 22:27:31 2016 Berdrigue BONGOLO BETO
+** Last update Wed Mar 30 11:51:22 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -21,3 +21,8 @@ void		print_list2_handler(void *data)
   parser = ((t_parser *)(data));
   my_printf("%s (%d)\n", parser->token, parser->type);
 }
+
+/* char		**list_to_array_parser(t_list *list) */
+/* { */
+/*   char		** */
+/* } */
