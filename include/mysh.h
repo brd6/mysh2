@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 11:47:36 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:40:58 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -26,6 +26,7 @@
 # define BGREEN	"\033[1;32m"
 # define BBLUE	"\033[1;34m"
 # define BCYAN	"\033[1;36m"
+# define ERR_MALLOC "Malloc error\n"
 
 # include "mylist.h"
 
@@ -46,13 +47,20 @@ extern char	*g_prompt;
 void		free_mysh(t_mysh *mysh);
 void		sig_handler_sigint(int code);
 int		check_null_line(char *line);
-int		check_valid_line(char *line);
+t_list		*check_valid_line(char *line);
 char		*epur_str(char *str, char *to_remove, int replace_with_space);
 int		is_space_str(char *str);
 
 int		env_key_exist(t_list *my_env, char *key);
 char		*key_to_value(t_list *env, char *key);
 void		show_prompt(t_mysh *mysh);
+
+/*
+** Exec
+*/
+int		exec_multi_cmd(t_mysh *mysh,
+			       t_list *cmd,
+			       t_my_builtin *builtins);
 
 /*
 ** builtins

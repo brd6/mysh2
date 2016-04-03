@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 13:15:39 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:42:52 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -21,19 +21,23 @@ void		mysh_loop(t_mysh *mysh)
   int		status;
   t_my_builtin	builtins[9];
   char		*line;
+  t_list	*cmds;
 
   init_builtins(builtins);
   while (1)
     {
       show_prompt(mysh);
-      line = get_next_line(0);
-      if (!check_null_line(line))
+      if (!check_null_line((line = get_next_line(0))))
 	break;
       // check_correct_line
-      if (!is_space_str(line))
+      if (!is_space_str(line) && (cmds = check_valid_line(line)) != NULL)
 	{
-	  check_valid_line(line);
 	  // record command in history list
+
+	  // process commmand execution
+	  if (exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
+	    break;
+
 	}
       free(line);
     }
@@ -53,9 +57,8 @@ int		main(int ac, char **av, char **envn)
   else
     {
       mysh.my_env = my_params_in_list(my_wordtab_count(envn), envn);
-      if (mysh.my_env == NULL)
-	return (my_putstr("Malloc error\n"), 1);
-      my_rev_list(&mysh.my_env);
+      if (mysh.my_env == NULL || !my_rev_list(&mysh.my_env))
+	return (my_putstr(ERR_MALLOC), 1);
     }
   mysh_loop(&mysh);
   free_mysh(&mysh);

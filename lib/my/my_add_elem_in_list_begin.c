@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Jan 19 12:29:15 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:51:41 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:58:21 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -19,7 +19,7 @@ int		my_add_elem_in_list_begin(t_list **begin, void *data)
   new = malloc(sizeof(*new));
   if (new == NULL)
     return (0);
-  new->data = my_strdup((char *)data);
+  new->data = data;
   new->next = *begin;
   *begin = new;
   return (1);

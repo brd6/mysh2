@@ -5,13 +5,14 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Wed Mar 30 11:48:16 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:33:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
 #include "mylist.h"
 #include "parser.h"
+#include "mysh.h"
 
 int		check_token(t_list2 *list, char *str)
 {
@@ -31,7 +32,7 @@ char		*extract_command(char *line)
   int		j;
 
   if ((cmd = malloc(sizeof(*cmd) * (my_strlen(line) + 1))) == NULL)
-    exit_on_error("Malloc error\n");
+    exit_on_error(ERR_MALLOC);
   i = 0;
   j = 0;
   if (line[i] == '"' || line[i] == '\'')
@@ -54,40 +55,39 @@ char		*get_str_cmd(char *str, int end_pos)
   return (str_cmd);
 }
 
-void		add_to_cmd_list(t_list2 **list,
-				char *str,
-				int type)
+/*
+** Add a token to the list and check for useless ";"
+** @list : a doubled linked list containing the tokens and their type
+** @str : a token to add (operator or command)
+** @type : token's type
+*/
+static void		add_to_cmd_list(t_list2 **list,
+					char *str,
+					int type)
 {
-  t_parser	*parser;
-  t_parser	*parser_tmp;
+  t_parser		*parser;
+  t_parser		*parser_tmp;
 
+  // check useless ;
+  if (((*list != NULL &&
+       (parser_tmp = ((t_parser *)((*list)->data))) &&
+       type == TOKEN_OPERATOR && parser_tmp != NULL &&
+       parser_tmp->token[0] == OP_AND[0]) || *list == NULL) &&
+      str[0] == OP_AND[0])
+    return;
   if ((parser = malloc(sizeof(*parser))) == NULL)
-    exit_on_error("Malloc error\n");
+    exit_on_error(ERR_MALLOC);
   if (*list != NULL && (type == TOKEN_COMMAND || type == TOKEN_OPTION) &&
       (parser_tmp = ((t_parser *)((*list)->data))) &&
       (parser_tmp->type == TOKEN_COMMAND || parser_tmp->type == TOKEN_OPTION))
-    {
-      parser->type = TOKEN_OPTION;
-    }
+    parser->type = TOKEN_OPTION;
   else
     parser->type = type;
-
-  // check useless ;
-  if (*list != NULL)
-    {
-      parser_tmp = ((t_parser *)((*list)->data));
-      if (type == TOKEN_OPERATOR && parser_tmp != NULL &&
-	  str[0] == OP_AND[0] && parser_tmp->token[0] == OP_AND[0])
-	{
-	  free(parser);
-	  return;
-	}
-    }
   parser->token = my_strdup(str);
   my_add_elem_in_list2_begin(list, parser);
 }
 
-int		check_valid_line(char *line)
+t_list		*check_valid_line(char *line)
 {
   int		i;
   char		**tab_line;
@@ -98,6 +98,9 @@ int		check_valid_line(char *line)
   t_parser	*parser;
 
   i = 0;
+  /* line = my_epur_str(line, " \t", 1); */
+  /* line = my_epur_str(line, ";", 0); */
+  /* line = my_epur_str(line, " \t", 1); */
   list = NULL;
   j = 0;
   str_cmd = NULL;
@@ -107,23 +110,25 @@ int		check_valid_line(char *line)
 	   ((ttype = TOKEN_OPERATOR))) ||
 	  (j = check_next_command(&line[i])) > -1 &&
 	  ((ttype = TOKEN_COMMAND)))
-	{
-	  str_cmd = get_str_cmd(&line[i], j);
-	}
+	str_cmd = get_str_cmd(&line[i], j);
       if (j == -2)
-	return (0);
+	return (NULL);
       if (j > 0)
 	{
 	  if (ttype == TOKEN_OPERATOR && !check_str_operator(list, str_cmd))
-	    {
-	      return (0);
-	    }
+	    return (NULL);
 	  add_to_cmd_list(&list, str_cmd, ttype);
 	  i = i + j;
 	}
       else
 	i++;
     }
+  /* free(line); */
+
+  // delete unless ; in list's end
+  parser = (t_parser *)(list->data);
+  if (parser->token[0] == OP_AND[0])
+    my_rm_elem_in_list2_begin(&list);
 
   // last check redirection / ??
   if (list != NULL)
@@ -132,23 +137,31 @@ int		check_valid_line(char *line)
       if (parser->type == TOKEN_OPERATOR)
 	{
 	  if (my_get_char_pos(&OPS[2], parser->token[0]) != -1) /* pour bonus: utiliser is_operators */
-	    return (my_puterr(ERROR_2), 0);
+	    return (my_puterr(ERROR_2), NULL);
 	  else if (list->next != NULL)
 	    {
 	      parser = (t_parser *)(list->next->data);
 	      if (my_get_char_pos(&OPS[2], parser->token[0]) != -1)
-		return (my_puterr(ERROR_2), 0);
+		return (my_puterr(ERROR_2), NULL);
 	    }
 	  parser = (t_parser *)(list->data);
 	  if (!my_strcmp(parser->token, OP_PIPE))
-	    return (my_puterr(ERROR_1), 0);
+	    return (my_puterr(ERROR_1), NULL);
 	  /* printf("__ '%s'\n", parser->token); */
 	}
+      // check redirection without command
+      if (list->next != NULL)
+	{
+	  parser = (t_parser *)(list->data);
+	  if (((parser->type == TOKEN_COMMAND ||
+		parser->type == TOKEN_OPTION) &&
+	       (parser = (t_parser *)(list->next->data)) != NULL &&
+	       parser->type == TOKEN_OPERATOR &&
+	       my_get_char_pos(&OPS[2], parser->token[0]) != -1) &&
+	      list->next->next == NULL)
+	    return (my_puterr(ERROR_1), NULL);
+	}
     }
-  // delete unless ; in list's end
-  parser = (t_parser *)(list->data);
-  if (parser->token[0] == OP_AND[0])
-    my_rm_elem_in_list2_begin(&list);
-  my_apply_on_rev_list2(list, print_list2_handler);
-  return (1);
+  /* my_apply_on_rev_list2(list, print_list2_handler); */
+  return (generate_commands_list(list));
 }

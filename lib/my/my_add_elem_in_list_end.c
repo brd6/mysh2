@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Jan  8 02:56:08 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:49:58 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:57:18 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -24,7 +24,7 @@ int		my_add_elem_in_list_end(t_list **begin, void *data)
   curr->next = malloc(sizeof(*curr));
   if (curr->next == NULL)
     return (0);
-  curr->next->data = my_strdup((char *)data);
+  curr->next->data = data;
   curr->next->next = NULL;
   return (1);
 }

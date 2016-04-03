@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 00:31:47 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 00:03:51 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 02:13:17 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef PARSER_H_
@@ -37,12 +37,30 @@ typedef struct	s_parser
   char		*token;
 }		t_parser;
 
+typedef struct	s_redirect
+{
+  char		*file;
+  char		*type;
+}		t_redirect;
+
+typedef struct	s_cmd
+{
+  char		*line;
+  char		*command;
+  char		**options;
+  t_redirect	*redirect;
+  int		is_pipe_line;
+}		t_cmd;
+
 int		check_str_operator(t_list2 *list, char *str);
 int		check_str_command(t_list2 *list, char *str);
 int		check_str_option(t_list2 *list, char *str);
 
 int		check_next_command(char *line);
 int		check_next_operator(char *line);
+
+t_list		*generate_commands_list(t_list2 *parser);
+char		*parser_list_to_str(t_list2 *list);
 
 /*
 ** Print errors
