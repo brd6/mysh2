@@ -5,28 +5,28 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 17:21:16 2016 Berdrigue BONGOLO BETO
-** Last update Fri Apr  1 17:22:52 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 13:51:53 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
 
-int		builtin_exit(t_mysh *mysh, char **args)
+int		builtin_exit(t_mysh *mysh, t_cmd *cmd)
 {
-  if (args[1] == NULL || args[1][0] == 0)
+  if (cmd->options[1] == NULL || cmd->options[1][0] == 0)
     {
       mysh->exit_code = 0;
       my_putstr("exit\n");
       return (EXIT_PROG);
     }
-  if (!my_str_isnum(args[1]) || args[2] != NULL)
+  if (!my_str_isnum(cmd->options[1]) || cmd->options[2] != NULL)
     {
       mysh->exit_code = 1;
       my_puterr("exit: Expression Syntax.\n");
       return (GO_ON);
     }
-  mysh->exit_code = my_getnbr(args[1]) % 256;
+  mysh->exit_code = my_getnbr(cmd->options[1]) % 256;
   my_putstr("exit\n");
   return (EXIT_PROG);
 }

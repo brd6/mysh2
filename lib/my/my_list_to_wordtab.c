@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Feb 21 16:45:40 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:53:04 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 14:55:24 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -25,10 +25,9 @@ char		**my_list_to_wordtab(t_list *begin)
   j = 0;
   while (curr)
     {
-      array[j] = my_strdup((char *)curr->data);
-      j++;
+      array[j++] = my_strdup((char *)curr->data);
       curr = curr->next;
     }
-  array[j] = 0;
+  array[j] = NULL;
   return (array);
 }

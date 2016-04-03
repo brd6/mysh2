@@ -5,13 +5,12 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Jan  8 02:28:31 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 00:27:03 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 14:56:34 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
-#include "parser.h"
 
 char		*get_env_key(char *env_data)
 {
@@ -19,7 +18,7 @@ char		*get_env_key(char *env_data)
   int		i;
 
   if ((key = malloc(sizeof(*key) * (my_strlen(env_data) + 1))) == NULL)
-    exit_on_error("Malloc error\n");
+    exit_on_error(ERR_MALLOC);
   i = 0;
   while (env_data[i] && env_data[i] != '=')
     {
@@ -37,7 +36,7 @@ char		*get_env_value(char *env_data)
   int		j;
 
   if ((value = malloc(sizeof(*value) * (my_strlen(env_data) + 1))) == NULL)
-    exit_on_error("Malloc error\n");
+    exit_on_error(ERR_MALLOC);
   i = 0;
   j = 0;
   while (env_data[i] && env_data[i] != '=')
@@ -70,15 +69,14 @@ char		**env_list_to_array(t_list *my_env)
   char		*s;
 
   if ((tab = malloc(sizeof(*tab) * (my_list_size(my_env) + 2))) == NULL)
-    exit_on_error("Malloc error\n");
+    exit_on_error(ERR_MALLOC);
   j = 0;
   while (my_env)
     {
       s = my_env->data;
-      tab[j] = my_strdup(s);
+      tab[j++] = my_strdup(s);
       my_env = my_env->next;
-      j = j + 1;
     }
-  tab[j] = 0;
+  tab[j] = NULL;
   return (tab);
 }

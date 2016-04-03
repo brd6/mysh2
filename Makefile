@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Sun Apr  3 02:27:54 2016 Berdrigue BONGOLO BETO
+## Last update Sun Apr  3 15:24:23 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -33,6 +33,10 @@ SRCS	= 	src/main.c \
 		src/exec_multi_pipes.c \
 		src/exec_simple_cmd.c \
 		src/generate_commands_list.c \
+		src/my_heredoc.c \
+		src/exec_utils.c \
+		src/fork_action.c \
+		src/get_bin_path.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 

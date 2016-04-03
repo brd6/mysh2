@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 13:30:11 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 14:30:50 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -70,7 +70,7 @@ static t_cmd	*alloc_cmd_list(t_list2 *parser_list)
   return (cmd);
 }
 
-static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list, int k)
+static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
 {
   t_list2	*tmp;
   t_parser	*parser;
@@ -102,7 +102,7 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list, int k)
       	{
 	  cmd->redirect[j].type = my_strdup(parser->token);
 	  parser = ((t_parser *)(tmp->prev->data));
-      	  cmd->redirect[j].is_at_begin = (k == 0);
+      	  cmd->redirect[j].is_at_begin = (j == 0 && i == 0);
       	  cmd->redirect[j++].file = my_strdup(parser->token);
 	  tmp = tmp->prev;
       	}
@@ -154,7 +154,7 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
       /* parser_list = parser_list->prev; */
     }
   else
-    parser_list = fill_cmd_list(cmd, parser_list, i);
+    parser_list = fill_cmd_list(cmd, parser_list);
 
   /* // go to the next cmd (after a ";" operator) */
   /* if (parser_list != NULL && parser_list->prev != NULL) */
