@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:04:05 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 19:22:25 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 23:24:27 2016 Berdrigue BONGOLO BETO
 */
 
 /* #include <signal.h> */
@@ -25,31 +25,33 @@ void		son_process_action(char *bin, char **env, t_cmd *cmd)
   /* signal(SIGINT, SIG_DFL); */
 
   // redirection
-  if (cmd->redirect[0].file != NULL)
-    {
-      if (cmd->redirect[0].is_at_begin)
-	{
-	  if (!my_strcmp(cmd->redirect[0].type, OP_LL_REDIRECT))
-	    {
-	      // exec my heredoc
-	      printf("heredoc\n");
-	    }
-	  else if (!my_strcmp(cmd->redirect[0].type, OP_L_REDIRECT))
-	    {
-	      // exec < redirection
-	      printf("sd2\n");
-	      if (!redirect_left(0, cmd->redirect[0].file))
-		return;
-	    }
-	  else if (!my_strcmp(cmd->redirect[0].type, OP_R_REDIRECT))
-	    {
-	      // exec > redirection
-	      printf("sd\n");
-	      if (!redirect_right(0, cmd->redirect[0].file))
-		return;
-	    }
-	}
-    }
+  /* if (cmd->redirect[0].file != NULL) */
+  /*   { */
+  /*     if (cmd->redirect[0].is_at_begin) */
+  /* 	{ */
+  /* 	  if (!my_strcmp(cmd->redirect[0].type, OP_LL_REDIRECT)) */
+  /* 	    { */
+  /* 	      // exec my heredoc */
+  /* 	      printf("heredoc\n"); */
+  /* 	    } */
+  /* 	  else if (!my_strcmp(cmd->redirect[0].type, OP_L_REDIRECT)) */
+  /* 	    { */
+  /* 	      // exec < redirection */
+  /* 	      printf("sd2\n"); */
+  /* 	      if (!redirect_left(0, cmd->redirect[0].file)) */
+  /* 		return; */
+  /* 	    } */
+  /* 	  else if (!my_strcmp(cmd->redirect[0].type, OP_R_REDIRECT)) */
+  /* 	    { */
+  /* 	      // exec > redirection */
+  /* 	      printf("sd\n"); */
+  /* 	      if (!redirect_right(0, cmd->redirect[0].file)) */
+  /* 		return; */
+  /* 	    } */
+  /* 	} */
+  /*   } */
+  if (!redirect_cmd(cmd))
+    return;
   if ((res = execve(bin, cmd->options, env)) == -1)
     my_puterr(ERR_EXECVE);
 }

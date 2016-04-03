@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 00:31:47 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 03:34:32 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 23:31:22 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef PARSER_H_
@@ -28,6 +28,7 @@
 # define ERROR_2 "Missing name for redirect.\n"
 # define ERROR_3 "Unmatched \".\n"
 # define ERROR_4 "Ambiguous output redirect.\n"
+# define ERROR_5 "Ambiguous input redirect.\n"
 
 # include "mylist.h"
 

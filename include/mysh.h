@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 19:11:46 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 23:23:03 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -84,6 +84,7 @@ char		*get_bin_path(char *bin, char *str_path);
 struct stat	my_stat(char *file);
 int		redirect_right(int is_double, char *filename);
 int		redirect_left(int is_double, char *filename);
+int		redirect_cmd(t_cmd *cmd);
 int		exec_multi_cmd(t_mysh *mysh,
 			       t_list *cmd,
 			       t_my_builtin *builtins);

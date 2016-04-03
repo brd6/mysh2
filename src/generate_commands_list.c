@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 18:29:41 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 00:05:00 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -70,7 +70,28 @@ static t_cmd	*alloc_cmd_list(t_list2 *parser_list)
   return (cmd);
 }
 
-static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
+static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
+{
+  t_list2	*tmp;
+  t_parser	*parser;
+
+  while (tmp != NULL)
+    {
+      parser = ((t_parser *)(tmp->data));
+      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
+	{
+	  tmp = tmp->prev;
+	  break;
+	}
+      tmp = tmp->prev;
+    }
+  return (tmp);
+}
+
+static t_list2	*fill_cmd_list(t_cmd *cmd,
+			       t_list2 *parser_list,
+			       t_list **list,
+			       int *is_redir_err)
 {
   t_list2	*tmp;
   t_parser	*parser;
@@ -108,27 +129,21 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
   cmd->command = cmd->options[0];
   cmd->options[i] = NULL;
   cmd->redirect[j].file = NULL;
+
+  // check for ambiguous redirection
+  if (j > 1 && !my_strcmp(cmd->redirect[0].type, cmd->redirect[1].type))
+    {
+      if (cmd->redirect[1].type[0] == OP_R_REDIRECT[0])
+	my_puterr(ERROR_4);
+      else
+	my_puterr(ERROR_5);
+      list = NULL;
+      *is_redir_err = 1;
+      return (NULL);
+    }
+  /* return (NULL); */
   /* if (tmp != NULL && tmp->prev != NULL) */
   /*   tmp = tmp->prev; */
-
-  return (tmp);
-}
-
-static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
-{
-  t_list2	*tmp;
-  t_parser	*parser;
-
-  while (tmp != NULL)
-    {
-      parser = ((t_parser *)(tmp->data));
-      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
-	{
-	  tmp = tmp->prev;
-	  break;
-	}
-      tmp = tmp->prev;
-    }
   return (tmp);
 }
 
@@ -138,12 +153,14 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
 				 int i)
 {
   t_cmd		*cmd;
+  int		is_redir_err;
 
   if (line == NULL)
     return (NULL);
   if ((cmd = alloc_cmd_list(parser_list)) == NULL)
     return (NULL);
   cmd->line = my_strdup(line);
+  is_redir_err = 0;
   if (count_command_type(parser_list, TOKEN_UNKNOWN, OP_PIPE) > 0)
     {
       cmd->is_pipe_line = 1;
@@ -152,8 +169,10 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
       /* parser_list = parser_list->prev; */
     }
   else
-    parser_list = fill_cmd_list(cmd, parser_list);
+    parser_list = fill_cmd_list(cmd, parser_list, list, &is_redir_err);
 
+  if (is_redir_err)
+    return (NULL);
   /* // go to the next cmd (after a ";" operator) */
   /* if (parser_list != NULL && parser_list->prev != NULL) */
   /*   parser_list = parser_list->prev; */
