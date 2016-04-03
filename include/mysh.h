@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 23:23:03 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 01:18:17 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -39,6 +39,7 @@
 # define ERR_DUP2 "dup2 error\n"
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
+# define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
 
 # include "mylist.h"
 # include "parser.h"
@@ -59,6 +60,7 @@ extern char	*g_prompt;
 
 void		free_mysh(t_mysh *mysh);
 void		sig_handler_sigint(int code);
+void		sig_handler_heredoc(int code);
 int		check_null_line(char *line);
 t_list		*check_valid_line(char *line);
 char		*epur_str(char *str, char *to_remove, int replace_with_space);
@@ -82,9 +84,10 @@ int		father_process_action(int son_pid);
 void		son_process_action(char *bin, char **env, t_cmd *cmd);
 char		*get_bin_path(char *bin, char *str_path);
 struct stat	my_stat(char *file);
-int		redirect_right(int is_double, char *filename);
-int		redirect_left(int is_double, char *filename);
+int		redirect_right(char *type, char *filename);
+int		redirect_left(char *type, char *filename);
 int		redirect_cmd(t_cmd *cmd);
+t_list		*my_heredoc(char *eof);
 int		exec_multi_cmd(t_mysh *mysh,
 			       t_list *cmd,
 			       t_my_builtin *builtins);
