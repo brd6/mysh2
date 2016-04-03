@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 14:30:50 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 18:29:41 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -91,10 +91,7 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
 	  break;
 	}
       if (parser->type == TOKEN_COMMAND)
-	{
-	  cmd->command = my_strdup(parser->token);
-	  cmd->options[i++] = my_strdup(parser->token);
-	}
+	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPTION)
 	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&
@@ -108,6 +105,7 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
       	}
       tmp = tmp->prev;
     }
+  cmd->command = cmd->options[0];
   cmd->options[i] = NULL;
   cmd->redirect[j].file = NULL;
   /* if (tmp != NULL && tmp->prev != NULL) */

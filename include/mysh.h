@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 15:29:25 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 19:11:46 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -35,6 +35,10 @@
 # define ERR_FLOATING_PTS_EXCP "Floating point exception\n"
 # define ERR_ENV_PATH "There aren't PATH in the env variable\n"
 # define EXIT_MSG "exit\n"
+# define ERR_OPEN_FILE "Unable to open file\n"
+# define ERR_DUP2 "dup2 error\n"
+# define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
+# define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 
 # include "mylist.h"
 # include "parser.h"
@@ -75,9 +79,11 @@ void		show_prompt(t_mysh *mysh);
 */
 int		check_bin_permission(char *bin);
 int		father_process_action(int son_pid);
-void		son_process_action(char *bin, char **env, char **args);
+void		son_process_action(char *bin, char **env, t_cmd *cmd);
 char		*get_bin_path(char *bin, char *str_path);
 struct stat	my_stat(char *file);
+int		redirect_right(int is_double, char *filename);
+int		redirect_left(int is_double, char *filename);
 int		exec_multi_cmd(t_mysh *mysh,
 			       t_list *cmd,
 			       t_my_builtin *builtins);

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:06:44 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 15:24:03 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 17:48:41 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -33,6 +33,8 @@ int		check_bin_permission(char *bin)
 {
   struct stat	file_stat;
 
+  if (bin == NULL)
+    return (0);
   file_stat = my_stat(bin);
   if (access(bin, F_OK) != 0 || !S_ISREG(file_stat.st_mode))
     {
