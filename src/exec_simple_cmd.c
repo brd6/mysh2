@@ -5,12 +5,23 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:08:23 2016 Berdrigue BONGOLO BETO
-** Last update Fri Apr  1 18:10:54 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 12:30:11 2016 Berdrigue BONGOLO BETO
 */
 
 #include "mysh.h"
 
-int		exec_simple_cmd()
+int		exec_simple_cmd(t_mysh *mysh,
+				t_cmd *cmd,
+				t_my_builtin *builtins)
 {
-  /* system(); */
+  // is_at_begin a check avant (redirection avant)
+
+  int		i;
+
+  i = 0;
+  while (cmd->options[i])
+    {
+      printf("%s\n", cmd->options[i]);
+      i++;
+    }
 }

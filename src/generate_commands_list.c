@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 02:58:59 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 12:55:30 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -30,13 +30,25 @@ static int	count_command_type(t_list2 *parser_list,
   while (tmp != NULL)
     {
       parser = ((t_parser *)(tmp->data));
-      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
+      if (parser != NULL &&
+	  parser->type == TOKEN_OPERATOR &&
+	  parser->token[0] == OP_AND[0])
 	break;
       if (parser->type == type ||
 	  (ops != NULL &&
+	   type == TOKEN_UNKNOWN &&
 	   my_get_char_pos(ops, parser->token[0]) != -1))
-	i++;
+	{
+	  /* if (type == TOKEN_UNKNOWN) */
+	    printf("! %s\n", parser->token);
+	  i++;
+	}
       tmp = tmp->prev;
+    }
+  if (type == TOKEN_UNKNOWN && ops[0] == '|')
+    {
+      printf("=> %s\n", parser->token);
+      printf("=> %d\n", i);
     }
   return ((type == TOKEN_OPTION) ? i + 1 : i);
 }
@@ -44,17 +56,21 @@ static int	count_command_type(t_list2 *parser_list,
 static t_cmd	*alloc_cmd_list(t_list2 *parser_list)
 {
   t_cmd		*cmd;
+  int		options_size;
+  int		redi_size;
 
   if ((cmd = malloc(sizeof(*cmd))) == NULL)
     return (NULL);
-  if ((cmd->options = malloc(count_command_type(parser_list, TOKEN_OPTION, NULL) + 1)) == NULL)
+  options_size = count_command_type(parser_list, TOKEN_OPTION, NULL) + 1;
+  if ((cmd->options = malloc(sizeof(*(cmd->options)) * options_size)) == NULL)
     return (NULL);
-  if ((cmd->redirect = malloc(count_command_type(parser_list, TOKEN_UNKNOWN, &OPS[2]) + 1)) == NULL)
+  redi_size = count_command_type(parser_list, TOKEN_UNKNOWN, &OPS[2]) + 1;
+  if ((cmd->redirect = malloc(sizeof(*(cmd->redirect)) * (redi_size))) == NULL)
     return (NULL);
   return (cmd);
 }
 
-static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
+static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list, int k)
 {
   t_list2	*tmp;
   t_parser	*parser;
@@ -72,16 +88,18 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
       if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
 	break;
       if (parser->type == TOKEN_COMMAND)
-	cmd->command = my_strdup(parser->token);
-      else if (parser->type == TOKEN_OPTION)
 	{
+	  cmd->command = my_strdup(parser->token);
 	  cmd->options[i++] = my_strdup(parser->token);
 	}
+      else if (parser->type == TOKEN_OPTION)
+	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&
       	       my_get_char_pos(&OPS[2], parser->token[0]) != -1)
       	{
 	  cmd->redirect[j].type = my_strdup(parser->token);
 	  parser = ((t_parser *)(tmp->prev->data));
+      	  cmd->redirect[j].is_at_begin = (k == 0);
       	  cmd->redirect[j++].file = my_strdup(parser->token);
 	  tmp = tmp->prev;
       	}
@@ -89,12 +107,15 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list)
     }
   cmd->options[i] = NULL;
   cmd->redirect[j].file = NULL;
+  if (tmp != NULL && tmp->prev != NULL)
+    tmp = tmp->prev;
   return (tmp);
 }
 
 static t_list2	*add_to_cmd_list(t_list2 *parser_list,
 				 char *line,
-				 t_list **list)
+				 t_list **list,
+				 int i)
 {
   t_cmd		*cmd;
 
@@ -110,7 +131,7 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
       parser_list = parser_list->prev;
     }
   else
-    parser_list = fill_cmd_list(cmd, parser_list);
+    parser_list = fill_cmd_list(cmd, parser_list, i);
 
   // add
   my_add_elem_in_list_end(list, cmd);
@@ -134,7 +155,7 @@ t_list		*generate_commands_list(t_list2 *parser_list)
     parser_tmp = parser_tmp->next;
   i = 0;
   while (parser_tmp != NULL)
-    parser_tmp = add_to_cmd_list(parser_tmp, parser_tab[i++], &list);
+    parser_tmp = add_to_cmd_list(parser_tmp, parser_tab[i++], &list, i);
   free(parser_tmp);
   my_free_wordtab(parser_tab);
   return (list);

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 02:40:58 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 03:19:44 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -29,6 +29,7 @@
 # define ERR_MALLOC "Malloc error\n"
 
 # include "mylist.h"
+# include "parser.h"
 
 typedef struct	s_mysh
 {
@@ -61,6 +62,9 @@ void		show_prompt(t_mysh *mysh);
 int		exec_multi_cmd(t_mysh *mysh,
 			       t_list *cmd,
 			       t_my_builtin *builtins);
+int		exec_simple_cmd(t_mysh *mysh,
+				t_cmd *cmd,
+				t_my_builtin *builtins);
 
 /*
 ** builtins

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 02:42:52 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 12:29:28 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -37,7 +37,6 @@ void		mysh_loop(t_mysh *mysh)
 	  // process commmand execution
 	  if (exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
 	    break;
-
 	}
       free(line);
     }

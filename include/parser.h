@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 00:31:47 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 02:13:17 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 03:34:32 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef PARSER_H_
@@ -41,6 +41,7 @@ typedef struct	s_redirect
 {
   char		*file;
   char		*type;
+  int		is_at_begin;
 }		t_redirect;
 
 typedef struct	s_cmd

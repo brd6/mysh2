@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 28 22:19:43 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 13:09:30 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -59,8 +59,10 @@ int		check_next_command(char *line)
       if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
 	  line[i] == end_char && (line[i + 1] == 0 || line[i + 1] != end_char))
 	{
-	  if (end_char != ' ')
+	  if (end_char != ' ' ||
+	      (line[i] != ' ' && my_get_char_pos(OPS, line[i]) == -1))
 	    i++;
+	  /* printf("checker2 : '%c' %d\n", line[i], i); */
 	  break;
 	}
       if (line[i] == '"' || line[i] == '\'' &&

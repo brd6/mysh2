@@ -5,13 +5,12 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 03:10:11 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 03:59:51 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
-#include "parser.h"
 
 int		exec_cmd(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
 {
@@ -23,7 +22,7 @@ int		exec_cmd(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
   else
     {
       my_printf("Simple : %s\n", cmd->line);
-      exec_simple_cmd();
+      exec_simple_cmd(mysh, cmd, builtins);
     }
   return (GO_ON);
 }
