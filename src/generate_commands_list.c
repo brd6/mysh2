@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 12:55:30 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr  3 13:30:11 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -40,16 +40,16 @@ static int	count_command_type(t_list2 *parser_list,
 	   my_get_char_pos(ops, parser->token[0]) != -1))
 	{
 	  /* if (type == TOKEN_UNKNOWN) */
-	    printf("! %s\n", parser->token);
+	  /* printf("! %s\n", ((t_parser *)(tmp->next->data))->token); */
 	  i++;
 	}
       tmp = tmp->prev;
     }
-  if (type == TOKEN_UNKNOWN && ops[0] == '|')
-    {
-      printf("=> %s\n", parser->token);
-      printf("=> %d\n", i);
-    }
+  /* if (type == TOKEN_UNKNOWN && ops[0] == '|') */
+  /*   { */
+  /*     printf("=> %s\n", parser->token); */
+  /*     printf("=> %d\n", i); */
+  /*   } */
   return ((type == TOKEN_OPTION) ? i + 1 : i);
 }
 
@@ -86,7 +86,10 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list, int k)
     {
       parser = ((t_parser *)(tmp->data));
       if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
-	break;
+	{
+	  tmp = tmp->prev;
+	  break;
+	}
       if (parser->type == TOKEN_COMMAND)
 	{
 	  cmd->command = my_strdup(parser->token);
@@ -107,8 +110,27 @@ static t_list2	*fill_cmd_list(t_cmd *cmd, t_list2 *parser_list, int k)
     }
   cmd->options[i] = NULL;
   cmd->redirect[j].file = NULL;
-  if (tmp != NULL && tmp->prev != NULL)
-    tmp = tmp->prev;
+  /* if (tmp != NULL && tmp->prev != NULL) */
+  /*   tmp = tmp->prev; */
+
+  return (tmp);
+}
+
+static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
+{
+  t_list2	*tmp;
+  t_parser	*parser;
+
+  while (tmp != NULL)
+    {
+      parser = ((t_parser *)(tmp->data));
+      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
+	{
+	  tmp = tmp->prev;
+	  break;
+	}
+      tmp = tmp->prev;
+    }
   return (tmp);
 }
 
@@ -128,11 +150,15 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
     {
       cmd->is_pipe_line = 1;
       cmd->options = NULL;
-      parser_list = parser_list->prev;
+      parser_list = goto_next_cmd_in_list(parser_list);
+      /* parser_list = parser_list->prev; */
     }
   else
     parser_list = fill_cmd_list(cmd, parser_list, i);
 
+  /* // go to the next cmd (after a ";" operator) */
+  /* if (parser_list != NULL && parser_list->prev != NULL) */
+  /*   parser_list = parser_list->prev; */
   // add
   my_add_elem_in_list_end(list, cmd);
   return (parser_list);
