@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 00:05:00 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 11:26:00 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -75,6 +75,7 @@ static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
   t_list2	*tmp;
   t_parser	*parser;
 
+  tmp = parser_list;
   while (tmp != NULL)
     {
       parser = ((t_parser *)(tmp->data));

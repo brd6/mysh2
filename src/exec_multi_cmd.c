@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 15:32:56 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 01:57:59 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -17,7 +17,7 @@ int		exec_cmd(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
   if (cmd->is_pipe_line)
     {
       /* my_printf("Pipes : %s\n", cmd->line); */
-      exec_multi_pipes();
+      return (exec_multi_pipes(mysh, cmd, builtins));
     }
   else
     {

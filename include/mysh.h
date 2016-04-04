@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 01:18:17 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 02:14:44 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -37,6 +37,7 @@
 # define EXIT_MSG "exit\n"
 # define ERR_OPEN_FILE "Unable to open file\n"
 # define ERR_DUP2 "dup2 error\n"
+# define ERR_PIPE "pipe error\n"
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
@@ -94,6 +95,10 @@ int		exec_multi_cmd(t_mysh *mysh,
 int		exec_simple_cmd(t_mysh *mysh,
 				t_cmd *cmd,
 				t_my_builtin *builtins);
+int		exec_multi_pipes(t_mysh *mysh,
+				 t_cmd *cmd,
+				 t_my_builtin *builtins);
+
 
 /*
 ** builtin utils

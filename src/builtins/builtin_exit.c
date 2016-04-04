@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 17:21:16 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 13:51:53 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 01:55:30 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -14,6 +14,8 @@
 
 int		builtin_exit(t_mysh *mysh, t_cmd *cmd)
 {
+  if (!redirect_cmd(cmd))
+    return (GO_ON);
   if (cmd->options[1] == NULL || cmd->options[1][0] == 0)
     {
       mysh->exit_code = 0;
