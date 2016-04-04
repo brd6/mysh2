@@ -5,12 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 11:26:00 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 21:20:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
 #include "parser.h"
+#include "mysh.h"
 
 /*
 ** Count a type of command in the list
@@ -113,7 +114,7 @@ static t_list2	*fill_cmd_list(t_cmd *cmd,
 	  break;
 	}
       if (parser->type == TOKEN_COMMAND)
-	cmd->options[i++] = my_strdup(parser->token);
+	cmd->options[i++] = epur_str(parser->token, " \t", -1);
       else if (parser->type == TOKEN_OPTION)
 	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&

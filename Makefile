@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Sun Apr  3 18:50:55 2016 Berdrigue BONGOLO BETO
+## Last update Mon Apr  4 21:18:47 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -38,6 +38,7 @@ SRCS	= 	src/main.c \
 		src/fork_action.c \
 		src/get_bin_path.c \
 		src/redirect_cmd.c \
+		src/epur_str.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 

@@ -1,0 +1,140 @@
+#!/bin/sh
+
+start()
+{
+    touch .tmp_a .tmp_b
+}
+
+end()
+{
+    rm -f .tmp_a .tmp_b
+}
+
+test0() #Check if ./mysh
+{   
+    res=`which ./mysh`
+    if [ "$res" = "" ]
+    then
+	echo "Please compile. Moulitest need your binary"
+	exit
+    fi
+}
+
+test1()
+{
+    start
+    echo "ls -l > .tmp_a" | ./mysh > /dev/null
+    echo "ls -l > .tmp_b" | tcsh > /dev/null
+    res=$(diff .tmp_a .tmp_b)
+    secure=`cat .tmp_a`
+    if [ "$res" = "" -a -n "$secure" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test2()
+{   
+    start
+    echo "touch .tmp_a; mkdir .tmp; cd .tmp; ls .. | wc > .tmp_b; cd -; ls | wc > .tmp_a;" | ./mysh > /dev/null
+    res=$(diff .tmp_a .tmp/.tmp_b)
+    secure=`cat .tmp_a`
+    if [ "$res" = "" -a -n "$secure" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    rm -rf .tmp/
+    end
+}
+
+test3()
+{   
+    start
+    echo "cat > .tmp_a < mysh" | ./mysh > /dev/null
+    echo "cat < mysh > .tmp_b" | ./mysh > /dev/null
+    res=$(diff .tmp_a mysh)
+    res2=$(diff .tmp_b mysh)
+    if [ "$res" = "" -a "$res2" = "" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test4()
+{   
+    start
+    echo "cat mysh | sort | head > .tmp_a" | ./mysh > /dev/null
+    echo "cat mysh | sort | head > .tmp_b" | tcsh > /dev/null
+    res=$(diff .tmp_b .tmp_b)
+    secure=`cat .tmp_a`
+    if [ "$res" = "" -a -n "$secure" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test5()
+{   
+    start
+    echo "cat < mysh | cat > .tmp_a" | ./mysh > /dev/null
+    res=$(diff .tmp_a mysh)
+    if [ "$res" = "" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test6()
+{   
+    start
+    echo "cat mysh | cat | cat | cat -e | wc > .tmp_a" | ./mysh > /dev/null
+    echo "cat mysh | cat -e | wc > .tmp_b" | ./mysh > /dev/null
+    res=$(diff .tmp_a .tmp_b)
+    secure=`cat .tmp_a`
+    if [ "$res" = "" -a -n "$secure" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test7()
+{   
+    start
+    echo "cat < mysh | cat > .tmp_a; ls >> .tmp_a" | ./mysh > /dev/null
+    echo "cat < mysh | cat > .tmp_b; ls >> .tmp_b" | tcsh > /dev/null
+    res=$(diff .tmp_a .tmp_b)
+    secure=`cat .tmp_a`
+    if [ "$res" = "" -a -n "$secure" ]
+    then
+	echo "OK"
+    else
+	echo "KO"
+    fi
+    end
+}
+
+test0
+test1
+test2
+test3
+test4
+test5
+test6
+test7

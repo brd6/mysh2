@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 28 22:30:37 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 28 22:30:48 2016 Berdrigue BONGOLO BETO
+** Last update Mon Apr  4 21:23:27 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -48,13 +48,17 @@ char		*epur_str(char *str, char *to_remove, int replace_with_space)
     return (NULL);
   j = 0;
   str_len = my_strlen(str);
-  i = set_first_char(to_remove, str, new_str, &j);
+  if (replace_with_space != -1)
+    i = set_first_char(to_remove, str, new_str, &j);
+  else
+    i = skip_char(str, to_remove);
   while (str[i])
     {
       if (my_get_char_pos(to_remove, str[i]) == -1)
 	{
 	  new_str[j] = str[i];
-	  if (i + 2 < str_len && my_get_char_pos(to_remove, str[i + 1]) != -1)
+	  if (replace_with_space != -1 &&
+	      i + 2 < str_len && my_get_char_pos(to_remove, str[i + 1]) != -1)
 	    new_str[++j] = (replace_with_space) ? ' ' : str[i + 1];
 	  j++;
 	}

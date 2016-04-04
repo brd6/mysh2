@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:04:05 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 01:05:29 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr  5 00:38:58 2016 Berdrigue BONGOLO BETO
 */
 
 /* #include <signal.h> */
@@ -16,16 +16,38 @@
 #include "my.h"
 #include "mysh.h"
 
-void		son_process_action(char *bin, char **env, t_cmd *cmd)
+void		son_process_action(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
 {
   int		res;
+  char		**env;
+  char		*bin;
+  int		builtin_index;
 
-  if (!check_bin_permission(bin))
-    exit(1);
+  if (((env = env_list_to_array(mysh->my_env)) == NULL))
+    {
+      free(env);
+      free(bin);
+      exit(1);
+    }
   if (!redirect_cmd(cmd))
-    return;
-  if ((res = execve(bin, cmd->options, env)) == -1)
-    my_puterr(ERR_EXECVE);
+    exit(1);
+  /* if (!my_strcmp(cmd->command, "exit")) */
+  /*   exit(1); */
+  if ((builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
+    {
+      builtins[builtin_index].func(mysh, cmd);
+      /* if (builtins[builtin_index].func(mysh, cmd) == EXIT_PROG) */
+      /* 	exit(2); */
+      exit(1);
+    }
+  else
+    {
+      if ((bin = get_bin_path(cmd->command, key_to_value(mysh->my_env, "PATH"))) == NULL ||
+	  !check_bin_permission(bin))
+	exit(1);
+      if ((res = execve(bin, cmd->options, env)) == -1)
+	my_puterr(ERR_EXECVE);
+    }
 }
 
 int		father_process_action(int son_pid)
