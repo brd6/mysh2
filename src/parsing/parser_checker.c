@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 03:48:59 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 01:47:36 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr  5 15:26:46 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -25,6 +25,23 @@ int		is_operators(char *str)
   return (0);
 }
 
+int		check_op_pipe(t_list2 *list, char *str)
+{
+  t_list2	*tmp;
+  t_parser	*prev_token;
+
+  tmp = list;
+  while (tmp != NULL)
+    {
+      prev_token = ((t_parser *)(tmp->data));
+      if (prev_token->type == TOKEN_OPERATOR &&
+	  prev_token->token[0] == OP_R_REDIRECT[0])
+	return (my_puterr(ERROR_4), 0);
+      tmp = tmp->next;
+    }
+  return (1);
+}
+
 int		check_str_operator(t_list2 *list, char *str)
 {
   t_parser	*prev_token;
@@ -36,9 +53,6 @@ int		check_str_operator(t_list2 *list, char *str)
     return (0);
   if (prev_token != NULL)
     {
-      /* printf("\n=> %s\n", prev_token->token); */
-      /* printf("op: %s\n", str); */
-
       // redirection check
       if (my_get_char_pos(&OPS[2], str[0]) != -1 &&
 	  prev_token->type == TOKEN_OPERATOR &&
@@ -47,6 +61,8 @@ int		check_str_operator(t_list2 *list, char *str)
       if (prev_token->type == TOKEN_OPERATOR &&
 	  my_get_char_pos(&OPS[1], str[0]) != -1)
         return (my_puterr(ERROR_1), 0);
+      if (str[0] == OP_PIPE[0] && !check_op_pipe(list, str))
+	return (0);
     }
   /* else if (prev_token == NULL && my_get_char_pos(&OPS[2], str[0]) != -1) */
   /*   return (my_puterr(ERROR_2), 0); */

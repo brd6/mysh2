@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 11:43:16 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr  5 10:45:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -13,15 +13,13 @@
 #include "my.h"
 #include "mysh.h"
 
-int		loop_pipe(t_mysh *mysh, t_list *list)
+int		loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
 {
   int		pipefd[2];
   pid_t		son_pid;
   int		fd_in;
   int		i;
   t_list	*tmp;
-  char		**env;
-  char		*bin;
   t_cmd		*cmd;
 
   fd_in = 0;
@@ -31,13 +29,6 @@ int		loop_pipe(t_mysh *mysh, t_list *list)
     {
       cmd = ((t_cmd *)(tmp->data));
       /* printf("%s\n", cmd->options[0]); */
-      if (((env = env_list_to_array(mysh->my_env)) == NULL) ||
-      	  (bin = get_bin_path(cmd->command, key_to_value(mysh->my_env, "PATH"))) == NULL)
-      	{
-      	  free(env);
-      	  free(bin);
-      	  return (0);
-      	}
       if (pipe(pipefd) == -1)
       	return (my_puterr(ERR_PIPE), 0);
       if ((son_pid = fork()) == -1)
@@ -48,7 +39,7 @@ int		loop_pipe(t_mysh *mysh, t_list *list)
       	  if (tmp->next != NULL)
       	    dup2(pipefd[1], 1);
       	  close(pipefd[0]);
-      	  son_process_action(bin, env, cmd);
+      	  son_process_action(mysh, cmd, builtins);
       	}
       else
       	{
@@ -71,6 +62,6 @@ int		exec_multi_pipes(t_mysh *mysh,
     return (GO_ON);
   if ((list = check_valid_line(cmd2->line)) == NULL)
     return (GO_ON);
-  loop_pipe(mysh, list);
+  loop_pipe(mysh, list, builtins);
   return (GO_ON);
 }
