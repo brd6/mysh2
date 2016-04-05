@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 21:20:05 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr  5 17:55:00 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -167,6 +167,7 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
     {
       cmd->is_pipe_line = 1;
       cmd->options = NULL;
+      cmd->command = NULL;
       parser_list = goto_next_cmd_in_list(parser_list);
       /* parser_list = parser_list->prev; */
     }

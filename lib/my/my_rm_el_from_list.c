@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu Jan 14 23:59:08 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 13:46:58 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr  5 17:49:26 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -25,13 +25,9 @@ void		*my_rm_el_from_list(t_list **begin,
       if ((*cmp)(curr->data, data_ref) == 0)
 	{
 	  if (prev == NULL)
-	    {
-	      *begin = curr->next;
-	    }
+	    *begin = curr->next;
 	  else
-	    {
-	      prev->next = curr->next;
-	    }
+	    prev->next = curr->next;
 	  free(curr);
 	  return (NULL);
 	}
