@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Wed Apr  6 16:28:53 2016 Berdrigue BONGOLO BETO
+## Last update Wed Apr  6 20:50:23 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -31,6 +31,7 @@ SRCS	= 	src/main.c \
 		src/exec_multi_cmd.c \
 		src/builtins/builtin_exit.c \
 		src/builtins/builtin_cd.c \
+		src/builtins/builtin_env.c \
 		src/exec_multi_pipes.c \
 		src/exec_simple_cmd.c \
 		src/parsing/generate_commands_list.c \

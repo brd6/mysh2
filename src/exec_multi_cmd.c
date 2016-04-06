@@ -5,19 +5,23 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 19:21:48 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 23:24:23 2016 Berdrigue BONGOLO BETO
 */
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
 
-int		exec_cmd(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
+int		exec_cmd(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins, t_cmd **exit_cmd)
 {
   if (cmd->is_pipe_line)
     {
       /* my_printf("Pipes : %s\n", cmd->command); */
-      return (exec_multi_pipes(mysh, cmd, builtins));
+      return (exec_multi_pipes(mysh, cmd, builtins, exit_cmd));
     }
   else
     {
@@ -42,11 +46,21 @@ int		exec_multi_cmd(t_mysh *mysh,
       if (!((t_cmd *)(tmp->data))->is_pipe_line &&
 	  !my_strcmp(((t_cmd *)(tmp->data))->command, "exit"))
 	exit_cmd = ((t_cmd *)(tmp->data));
-      if (exec_cmd(mysh, tmp->data, builtins) == EXIT_PROG)
-	return (EXIT_PROG);
+      if (exec_cmd(mysh, tmp->data, builtins, &exit_cmd) == EXIT_PROG)
+	{
+	  /* printf("aaahh\n"); */
+	  /* return (EXIT_PROG); */
+	}
       tmp = tmp->next;
     }
-  if (!exit_cmd->is_pipe_line && !my_strcmp(exit_cmd->command, "exit") &&
+  if (exit_cmd != NULL && !exit_cmd->is_pipe_line &&
+      !my_strcmp(exit_cmd->command, "exit") &&
       (builtin_index = is_builins_cmd(exit_cmd->command, builtins)) != -1)
-    return (builtins[builtin_index].func(mysh, exit_cmd));
+    {
+      printf("aaahh\n");
+      /* int devNull = open("/dev/null", O_WRONLY); */
+      /* dup2(devNull, 1); */
+      /* return (builtins[builtin_index].func(mysh, exit_cmd)); */
+    }
+  return (GO_ON);
 }

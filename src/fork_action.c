@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:04:05 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 18:51:24 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 22:13:21 2016 Berdrigue BONGOLO BETO
 */
 
 /* #include <signal.h> */
@@ -33,7 +33,7 @@ void		son_process_action(t_mysh *mysh, t_cmd *cmd, t_my_builtin *builtins)
     exit(1);
   /* if (!my_strcmp(cmd->command, "exit") || !my_strcmp(cmd->command, "cd")) */
   /*   exit(1); */
-  if ((builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
+  if (/* (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1 */ 0)
     {
       builtins[builtin_index].func(mysh, cmd);
       /* if (builtins[builtin_index].func(mysh, cmd) == EXIT_PROG) */

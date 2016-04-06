@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Jan 13 21:26:09 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 16:39:38 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 20:45:41 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -38,8 +38,8 @@ void		init_builtins(t_my_builtin *builtins)
 {
   init_builtin_struct(&builtins[0], "exit", &builtin_exit);
   init_builtin_struct(&builtins[1], "cd", &builtin_cd);
-  init_builtin_struct(&builtins[2], NULL, NULL);
-  /* init_builtin_struct(&builtins[2], "env", &builtin_env); */
+  init_builtin_struct(&builtins[2], "env", &builtin_env);
+  init_builtin_struct(&builtins[3], NULL, NULL);
   /* init_builtin_struct(&builtins[3], "history_", &builtin_exit); */
   /* init_builtin_struct(&builtins[4], "setenv", &builtin_setenv); */
   /* init_builtin_struct(&builtins[5], "unsetenv", &builtin_unsetenv); */

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 28 19:37:16 2016 Berdrigue BONGOLO BETO
-** Last update Mon Mar 28 22:27:31 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 23:30:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -19,5 +19,5 @@ void		print_list2_handler(void *data)
   if (data == NULL)
     return;
   parser = ((t_parser *)(data));
-  my_printf("%s (%d)\n", parser->token, parser->type);
+  my_printf("'%s' (%d)\n", parser->token, parser->type);
 }

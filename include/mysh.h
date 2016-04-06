@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 16:33:21 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 23:20:55 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -103,9 +103,9 @@ int		exec_simple_cmd(t_mysh *mysh,
 				t_cmd *cmd,
 				t_my_builtin *builtins);
 int		exec_multi_pipes(t_mysh *mysh,
-				 t_cmd *cmd,
-				 t_my_builtin *builtins);
-
+				 t_cmd *cmd2,
+				 t_my_builtin *builtins,
+				 t_cmd **exit_cmd);
 
 /*
 ** builtin utils
@@ -118,5 +118,5 @@ int		is_builins_cmd(char *cmd, t_my_builtin *builtins);
 */
 int		builtin_exit(t_mysh *mysh, t_cmd *cmd);
 int		builtin_cd(t_mysh *mysh, t_cmd *cmd);
-
+int		builtin_env(t_mysh *mysh, t_cmd *cmd);
 #endif /* !MYSH_H_ */
