@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 00:09:42 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 00:19:02 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -124,4 +124,5 @@ int		builtin_exit(t_mysh *mysh, t_cmd *cmd);
 int		builtin_cd(t_mysh *mysh, t_cmd *cmd);
 int		builtin_env(t_mysh *mysh, t_cmd *cmd);
 int		builtin_setenv(t_mysh *mysh, t_cmd *cmd);
+int		builtin_unsetenv(t_mysh *mysh, t_cmd *cmd);
 #endif /* !MYSH_H_ */

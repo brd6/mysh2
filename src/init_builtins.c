@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Jan 13 21:26:09 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 00:07:12 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 00:20:41 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -40,7 +40,7 @@ void		init_builtins(t_my_builtin *builtins)
   init_builtin_struct(&builtins[1], "cd", &builtin_cd);
   init_builtin_struct(&builtins[2], "env", &builtin_env);
   init_builtin_struct(&builtins[3], "setenv", &builtin_setenv);
-  /* init_builtin_struct(&builtins[4], "unsetenv", &builtin_unsetenv); */
+  init_builtin_struct(&builtins[4], "unsetenv", &builtin_unsetenv);
   /* init_builtin_struct(&builtins[5], "help", &builtin_help); */
-  init_builtin_struct(&builtins[4], NULL, NULL);
+  init_builtin_struct(&builtins[5], NULL, NULL);
 }
