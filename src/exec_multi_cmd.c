@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr  5 18:21:51 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 18:11:40 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -46,7 +46,7 @@ int		exec_multi_cmd(t_mysh *mysh,
 	return (EXIT_PROG);
       tmp = tmp->next;
     }
-  if (!exit_cmd->is_pipe_line && !my_strcmp(exit_cmd->command, "exit") &&
-      (builtin_index = is_builins_cmd(exit_cmd->command, builtins)) != -1)
-    return (builtins[builtin_index].func(mysh, exit_cmd));
+  /* if (!exit_cmd->is_pipe_line && !my_strcmp(exit_cmd->command, "exit") && */
+  /*     (builtin_index = is_builins_cmd(exit_cmd->command, builtins)) != -1) */
+  /*   return (builtins[builtin_index].func(mysh, exit_cmd)); */
 }

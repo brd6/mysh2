@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:08:23 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr  5 18:13:16 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 18:33:36 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -26,8 +26,7 @@ int		execute_cmd_system(t_mysh *mysh,
     son_process_action(mysh, cmd, builtins);
   else
     son_status = father_process_action(son_pid);
-  if (son_status == 512)
-    return (EXIT_PROG);
+  /* printf("son status: %d\n", son_status); */
   return (GO_ON);
 }
 
@@ -45,10 +44,14 @@ int		exec_simple_cmd(t_mysh *mysh,
   /*   { */
   /*     return (builtins[builtin_index].func(mysh, cmd)); */
   /*   } */
-  /* else */
-  if (execute_cmd_system(mysh, cmd, builtins) == EXIT_PROG)
-    return (EXIT_PROG);
-  /* if (!my_strcmp(cmd->command, "exit") && */
-  /*     (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1) */
-  /*   return (builtins[builtin_index].func(mysh, cmd)); */
+  /* else  */if (execute_cmd_system(mysh, cmd, builtins) == EXIT_PROG)
+    {
+      return (EXIT_PROG);
+    }
+  if (!my_strcmp(cmd->command, "exit") &&
+      (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
+    return (builtins[builtin_index].func(mysh, cmd));
+  if (!my_strcmp(cmd->command, "cd") &&
+      (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
+    return (builtins[builtin_index].func(mysh, cmd));
 }
