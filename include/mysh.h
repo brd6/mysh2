@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 23:20:55 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 00:09:42 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -42,6 +42,9 @@
 # define ERR_FILE_NOACCESS "%s: Unauthorized access\n"
 # define ERR_NODIRECTORY "%s: Not a directory\n"
 # define ERR_GETWCD "getcwd error\n"
+# define ERR_SETENV_VARNAME1 "setenv: Variable name must begin with a letter.\n"
+# define ERR_SETENV_VARNAME2 "setenv: Variable name must contain alphanumeric characters.\n"
+# define ERR_SETENV_MALLOC "setenv: Unable to set a new variable to the env\n"
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
@@ -71,6 +74,7 @@ t_list		*check_valid_line(char *line);
 char		*epur_str(char *str, char *to_remove, int replace_with_space);
 int		is_space_str(char *str);
 char		*concat_two_str(char *str1, char *str2, char *c);
+int		find_key(char *data, char *data_ref);
 
 /*
 ** Env
@@ -119,4 +123,5 @@ int		is_builins_cmd(char *cmd, t_my_builtin *builtins);
 int		builtin_exit(t_mysh *mysh, t_cmd *cmd);
 int		builtin_cd(t_mysh *mysh, t_cmd *cmd);
 int		builtin_env(t_mysh *mysh, t_cmd *cmd);
+int		builtin_setenv(t_mysh *mysh, t_cmd *cmd);
 #endif /* !MYSH_H_ */

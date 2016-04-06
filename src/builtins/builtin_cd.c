@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Apr  5 17:31:23 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 19:35:28 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 00:09:20 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -14,11 +14,6 @@
 #include "my.h"
 #include "my_printf.h"
 #include "mysh.h"
-
-int		find_key(char *data, char *data_ref)
-{
-  return ((my_strstr(data, data_ref) != NULL) ? 0 : 1);
-}
 
 char		*get_goto_dir(t_mysh *mysh, char **args)
 {
