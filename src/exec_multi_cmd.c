@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 23:24:23 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 23:50:56 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -57,10 +57,10 @@ int		exec_multi_cmd(t_mysh *mysh,
       !my_strcmp(exit_cmd->command, "exit") &&
       (builtin_index = is_builins_cmd(exit_cmd->command, builtins)) != -1)
     {
-      printf("aaahh\n");
+      /* printf("aaahh\n"); */
       /* int devNull = open("/dev/null", O_WRONLY); */
       /* dup2(devNull, 1); */
-      /* return (builtins[builtin_index].func(mysh, exit_cmd)); */
+      return (builtins[builtin_index].func(mysh, exit_cmd));
     }
   return (GO_ON);
 }
