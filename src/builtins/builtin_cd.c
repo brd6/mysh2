@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Apr  5 17:31:23 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 00:09:20 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 00:56:42 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -15,7 +15,7 @@
 #include "my_printf.h"
 #include "mysh.h"
 
-char		*get_goto_dir(t_mysh *mysh, char **args)
+char		*get_goto_dir(t_mysh *mysh, char **args, char *oldpwd)
 {
   char		*home_val;
 
@@ -29,8 +29,8 @@ char		*get_goto_dir(t_mysh *mysh, char **args)
     return (my_str_replace("~", home_val, args[1], 1));
   if (args[1] == NULL || args[1][0] == 0)
     return (home_val);
-  if (!my_strcmp(args[1], "-") && env_key_exist(mysh->my_env, "OLDPWD"))
-    return (key_to_value(mysh->my_env, "OLDPWD"));
+  if (!my_strcmp(args[1], "-") && oldpwd != NULL /* env_key_exist(mysh->my_env, "OLDPWD") */)
+    return (oldpwd/* key_to_value(mysh->my_env, "OLDPWD") */);
   return (my_strdup(args[1]));
 }
 
@@ -55,8 +55,9 @@ int		builtin_cd(t_mysh *mysh, t_cmd *cmd)
   char		buf[PATH_MAX + 1];
   char		*cwd;
   char		*err_tmp;
+  static char	*oldpwd = NULL;
 
-  if ((goto_dir = get_goto_dir(mysh, cmd->options)) == NULL)
+  if ((goto_dir = get_goto_dir(mysh, cmd->options, oldpwd)) == NULL)
     return (0);
   if (access(goto_dir, F_OK) != 0)
     {
@@ -70,7 +71,8 @@ int		builtin_cd(t_mysh *mysh, t_cmd *cmd)
     }
   if ((cwd = getcwd(buf, PATH_MAX + 1)) == NULL)
     return (my_puterr(ERR_GETWCD), 0);
-  builtin_cd_replacing_pwd(mysh, cwd, "OLDPWD");
+  oldpwd = my_strdup(cwd);
+  /* builtin_cd_replacing_pwd(mysh, cwd, "OLDPWD"); */
   if ((res = chdir(goto_dir)) == -1 ||
       (cwd = getcwd(buf, PATH_MAX + 1)) == NULL)
     {

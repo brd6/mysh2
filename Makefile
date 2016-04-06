@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Thu Apr  7 00:20:18 2016 Berdrigue BONGOLO BETO
+## Last update Thu Apr  7 00:25:54 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -50,7 +50,6 @@ OBJS	= 	$(SRCS:.c=.o)
 CFLAGS	+=	-I./include/ -I./lib/my/include/ -I./lib/my_printf/include/
 
 LDFLAGS +=	-L./lib -lmy -L./lib/my_printf -lmyprintf
-#LDFLAGS +=	-lncurses
 
 all: libmy libmyprintf $(NAME)
 
