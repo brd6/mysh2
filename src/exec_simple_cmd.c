@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:08:23 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 18:33:36 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 19:25:45 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -48,10 +48,8 @@ int		exec_simple_cmd(t_mysh *mysh,
     {
       return (EXIT_PROG);
     }
-  if (!my_strcmp(cmd->command, "exit") &&
+  if ((/*!my_strcmp(cmd->command, "exit") ||  */!my_strcmp(cmd->command, "cd"))&&
       (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
     return (builtins[builtin_index].func(mysh, cmd));
-  if (!my_strcmp(cmd->command, "cd") &&
-      (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
-    return (builtins[builtin_index].func(mysh, cmd));
+  return (GO_ON);
 }

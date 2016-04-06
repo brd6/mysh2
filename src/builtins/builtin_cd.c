@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Apr  5 17:31:23 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 17:26:16 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 19:35:28 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -59,19 +59,29 @@ int		builtin_cd(t_mysh *mysh, t_cmd *cmd)
   int		res;
   char		buf[PATH_MAX + 1];
   char		*cwd;
+  char		*err_tmp;
 
   if ((goto_dir = get_goto_dir(mysh, cmd->options)) == NULL)
     return (0);
   if (access(goto_dir, F_OK) != 0)
-    return (my_printf(ERR_FILE_NOEXIST, goto_dir));
+    {
+      err_tmp = my_str_replace("%s", goto_dir, ERR_FILE_NOEXIST, 1);
+      return (my_puterr(err_tmp), 0);
+    }
   if (access(goto_dir, R_OK) != 0)
-    return (my_printf(ERR_FILE_NOACCESS, goto_dir));
+    {
+      err_tmp = my_str_replace("%s", goto_dir, ERR_FILE_NOACCESS, 1);
+      return (my_puterr(err_tmp), 0);
+    }
   if ((cwd = getcwd(buf, PATH_MAX + 1)) == NULL)
-    return (my_putstr(ERR_GETWCD), 0);
+    return (my_puterr(ERR_GETWCD), 0);
   builtin_cd_replacing_pwd(mysh, cwd, "OLDPWD");
   if ((res = chdir(goto_dir)) == -1 ||
       (cwd = getcwd(buf, PATH_MAX + 1)) == NULL)
-    return (my_printf(ERR_NODIRECTORY, goto_dir));
+    {
+      err_tmp = my_str_replace("%s", goto_dir, ERR_NODIRECTORY, 1);
+      return (my_puterr(err_tmp), 0);
+    }
   if (!env_key_exist(mysh->my_env, "PWD"))
     return (0);
   builtin_cd_replacing_pwd(mysh, cwd, "PWD");

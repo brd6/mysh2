@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 18:32:28 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 19:36:43 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -63,6 +63,5 @@ int		exec_multi_pipes(t_mysh *mysh,
   if ((list = check_valid_line(cmd2->line)) == NULL)
     return (GO_ON);
   loop_pipe(mysh, list, builtins);
-  printf("ok\n");
   return (GO_ON);
 }
