@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 23:52:29 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 16:33:21 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -38,6 +38,10 @@
 # define ERR_OPEN_FILE "Unable to open file\n"
 # define ERR_DUP2 "dup2 error\n"
 # define ERR_PIPE "pipe error\n"
+# define ERR_FILE_NOEXIST "'%s': No such file or folder type.\n"
+# define ERR_FILE_NOACCESS "%s: Unauthorized access\n"
+# define ERR_NODIRECTORY "%s: Not a directory\n"
+# define ERR_GETWCD "getcwd error\n"
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
@@ -73,6 +77,7 @@ char		*concat_two_str(char *str1, char *str2, char *c);
 */
 int		env_key_exist(t_list *my_env, char *key);
 char		*key_to_value(t_list *env, char *key);
+int		env_key_exist_v(t_list *my_env, char *key);
 char		**env_list_to_array(t_list *my_env);
 
 void		show_prompt(t_mysh *mysh);
@@ -112,5 +117,6 @@ int		is_builins_cmd(char *cmd, t_my_builtin *builtins);
 ** builtins
 */
 int		builtin_exit(t_mysh *mysh, t_cmd *cmd);
+int		builtin_cd(t_mysh *mysh, t_cmd *cmd);
 
 #endif /* !MYSH_H_ */

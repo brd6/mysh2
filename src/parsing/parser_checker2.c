@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 13:09:30 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr  6 16:52:16 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -47,20 +47,21 @@ int		check_next_command(char *line)
 
   end_char = (line[0] == '"' || line[0] == '\'') ? line[0] : ' ';
   i = 0;
-  if (end_char == ' ' && (line[0] == ' '))
+  if (end_char == ' ' && (line[0] == ' ' || line[0] == '\t'))
     return (-1);
   bak_i = i;
   end_cp[0] = (end_cp[1] = 0);
-  if (end_char != ' ' && line[0] == end_char)
+  if (end_char != ' ' && (line[0] == end_char || line[0] == '\t'))
     set_nb_quote(end_cp, line[i++]);
   while (line[i])
     {
       set_nb_quote(end_cp, line[i]);
       if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
-	  line[i] == end_char && (line[i + 1] == 0 || line[i + 1] != end_char))
+	  (line[i] == end_char || line[i] == '\t') && (line[i + 1] == 0 || line[i + 1] != end_char))
 	{
 	  if (end_char != ' ' ||
-	      (line[i] != ' ' && my_get_char_pos(OPS, line[i]) == -1))
+	      ((line[i] != ' ' || line[i] == '\t') &&
+	       my_get_char_pos(OPS, line[i]) == -1))
 	    i++;
 	  /* printf("checker2 : '%c' %d\n", line[i], i); */
 	  break;
