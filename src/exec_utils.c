@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:06:44 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 18:40:13 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 19:53:02 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -43,13 +43,13 @@ int		check_bin_permission(char *bin)
   if (bin == NULL)
     return (0);
   file_stat = my_stat(bin);
-  if (access(bin, F_OK) != 0 || !S_ISREG(file_stat.st_mode))
+  if (access(bin, F_OK) != 0)
     {
       my_puterr(bin);
       my_puterr(ERR_COMMAND_NOT_FOUND);
       return (0);
     }
-  if (access(bin, X_OK) != 0)
+  if (access(bin, X_OK) != 0 || !S_ISREG(file_stat.st_mode))
     {
       my_puterr(bin);
       my_puterr(ERR_PERMISSION_DENIED);
