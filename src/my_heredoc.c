@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 14:45:26 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 19:26:23 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 19:37:18 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -26,6 +26,7 @@ char		*filewrite_heredoc(t_list *list)
   tmp = list;
   filename = directory_exist("/tmp/") ? HEREDOC_TMP1 : HEREDOC_TMP2;
   filename = my_str_replace("%pid%", my_itoa(getpid()), filename, 1);
+  /* printf("%d\n",getpid() ); */
   if ((fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, FLG_FILE_PERM)) == -1)
     return (NULL);
   while (tmp != NULL)
@@ -40,12 +41,10 @@ char		*filewrite_heredoc(t_list *list)
   return (filename);
 }
 
-/* void		delete_heredoc_filetmp(char *filename) */
+/* void		delete_heredoc_filetmp(char *filename, char **env) */
 /* { */
-/*   char		*rm_cmd; */
 /*   char		**cmd; */
 
-/*   rm_cmd = my_str_replace("%s", filename, "rm -f %s", 1); */
 /*   if ((cmd = malloc(sizeof(*cmd) * (4))) == NULL) */
 /*     return; */
 /*   cmd[0] = my_strdup("rm"); */
