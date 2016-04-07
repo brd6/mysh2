@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:18:28 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 15:29:45 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 15:48:52 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -17,8 +17,8 @@
 
 int		is_relative_dir(char *bin)
 {
-  if (!my_strncmp(bin, "~/", 2) || !my_strncmp(bin, "/", 1)
-      || !my_strncmp(bin, "./", 2) || access(bin, F_OK) == 0)
+  if ((!my_strncmp(bin, "~/", 2) || !my_strncmp(bin, "/", 1)
+       || !my_strncmp(bin, "./", 2)) && access(bin, F_OK) == 0)
     return (1);
   return (0);
 }
@@ -49,9 +49,8 @@ char		*get_bin_path(char *bin, char *str_path)
 
   if (is_relative_dir(bin))
     return (my_strdup(bin));
-  if (str_path == NULL || (path = my_str_split(str_path, ":")) == NULL)
-    return (my_puterr(ERR_ENV_PATH), NULL);
-  if ((correct_bin = get_bin_path_search(path, bin)) == NULL)
+  if (str_path == NULL || (path = my_str_split(str_path, ":")) == NULL ||
+      (correct_bin = get_bin_path_search(path, bin)) == NULL)
     {
       my_puterr(bin);
       my_puterr(ERR_COMMAND_NOT_FOUND);
