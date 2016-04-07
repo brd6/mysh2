@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 00:19:02 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 19:26:32 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -38,6 +38,7 @@
 # define ERR_OPEN_FILE "Unable to open file\n"
 # define ERR_DUP2 "dup2 error\n"
 # define ERR_PIPE "pipe error\n"
+# define ERR_HEREDOC "heredoc error\n"
 # define ERR_FILE_NOEXIST "'%s': No such file or folder type.\n"
 # define ERR_FILE_NOACCESS "%s: Unauthorized access\n"
 # define ERR_NODIRECTORY "%s: Not a directory\n"
@@ -48,6 +49,8 @@
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
+# define HEREDOC_TMP1 "/tmp/.mysh_heredoc_%pid%"
+# define HEREDOC_TMP2 ".mysh_heredoc_%pid%"
 
 # include "mylist.h"
 # include "parser.h"
@@ -75,6 +78,7 @@ char		*epur_str(char *str, char *to_remove, int replace_with_space);
 int		is_space_str(char *str);
 char		*concat_two_str(char *str1, char *str2, char *c);
 int		find_key(char *data, char *data_ref);
+int		directory_exist(char *dirr);
 
 /*
 ** Env
@@ -100,6 +104,7 @@ int		redirect_right(char *type, char *filename);
 int		redirect_left(char *type, char *filename);
 int		redirect_cmd(t_cmd *cmd);
 t_list		*my_heredoc(char *eof);
+char		*filewrite_heredoc(t_list *list);
 int		exec_multi_cmd(t_mysh *mysh,
 			       t_list *cmd,
 			       t_my_builtin *builtins);

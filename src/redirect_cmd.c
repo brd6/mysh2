@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 18:50:41 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 01:48:29 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 18:56:26 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -26,18 +26,15 @@ int		redirect_left(char *type, char *filename)
   int		fd;
   t_list	*heredoc;
 
-  if (my_strcmp(type, OP_LL_REDIRECT) != 0)
+  if (!my_strcmp(type, OP_LL_REDIRECT))
     {
-      if ((fd = open(filename, O_RDONLY)) == -1)
-	return (my_puterr(ERR_OPEN_FILE), 0);
+      if ((heredoc = my_heredoc(filename)) == NULL)
+	return (my_puterr(ERR_HEREDOC), 0);
+      filename = filewrite_heredoc(heredoc);
+      my_free_list(&heredoc);
     }
-    else
-      fd = 1;
-  if (fd == 1)
-    {
-      heredoc = my_heredoc(filename);
-      my_apply_on_list(heredoc, print_list_str);
-    }
+  if ((fd = open(filename, O_RDONLY)) == -1)
+    return (my_puterr(ERR_OPEN_FILE), 0);
   if (dup2(fd, 0) == -1)
     return (my_puterr(ERR_DUP2), 0);
   return (1);
@@ -63,7 +60,7 @@ int		redirect_cmd(t_cmd *cmd)
   i = 0;
   while (cmd->redirect[i].file != NULL)
     {
-      if (cmd->redirect[i].type[0] == OP_LL_REDIRECT[0] &&
+      if (cmd->redirect[i].type[0] == OP_L_REDIRECT[0] &&
 	  !redirect_left(cmd->redirect[i].type, cmd->redirect[i].file))
 	{
 	  /* printf("heredoc\n"); */

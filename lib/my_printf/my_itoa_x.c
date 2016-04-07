@@ -5,13 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Oct 30 12:58:22 2015 berdrigue bongolo-beto
-** Last update Sun Feb 21 18:27:46 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 18:28:03 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my_printf.h"
 
-void	recurr_itoa(char *str, long nbr, int *i)
+void	recurr_itoa_x(char *str, long nbr, int *i)
 {
   if (nbr >= 0 && nbr <= 9)
     {
@@ -20,8 +20,8 @@ void	recurr_itoa(char *str, long nbr, int *i)
     }
   else if (nbr > 9)
     {
-      recurr_itoa(str, nbr / 10, i);
-      recurr_itoa(str, nbr % 10, i);
+      recurr_itoa_x(str, nbr / 10, i);
+      recurr_itoa_x(str, nbr % 10, i);
     }
 }
 
@@ -40,7 +40,7 @@ char	*my_itoa_x(long nbr)
       i = i + 1;
       nbr = nbr * (-1);
     }
-  recurr_itoa(str, nbr, &i);
+  recurr_itoa_x(str, nbr, &i);
   str[i] = 0;
   return (str);
 }

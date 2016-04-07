@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:06:44 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr  3 17:48:41 2016 Berdrigue BONGOLO BETO
+** Last update Thu Apr  7 18:40:13 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -27,6 +27,13 @@ int		file_exist(char *file)
   struct stat	file_stat;
 
   return (stat(file, &file_stat) == 0);
+}
+
+int		directory_exist(char *dirr)
+{
+  struct stat	dir_stat;
+
+  return (stat(dirr, &dir_stat) == 0 && S_ISDIR(dir_stat.st_mode));
 }
 
 int		check_bin_permission(char *bin)
