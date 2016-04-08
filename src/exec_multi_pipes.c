@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 23:21:36 2016 Berdrigue BONGOLO BETO
+** Last update Fri Apr  8 10:46:44 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -40,10 +40,15 @@ t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
 	return (my_puterr(ERR_FORK), NULL);
       if (son_pid == 0)
       	{
+	  close(pipefd[0]);
       	  dup2(fd_in, 0);
+	  /* close(fd_in); */
       	  if (tmp->next != NULL)
-      	    dup2(pipefd[1], 1);
-      	  close(pipefd[0]);
+	    {
+	      dup2(pipefd[1], 1);
+	      close(pipefd[1]);
+	    }
+      	  /* close(pipefd[0]); */
 	  if ((builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
 	    {
 	      if (!(tmp->next == NULL && !my_strcmp(cmd->command, "exit")))
@@ -57,12 +62,12 @@ t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
       	}
       else
       	{
-      	  father_process_action(son_pid);
       	  close(pipefd[1]);
       	  fd_in = pipefd[0];
       	  tmp = tmp->next;
       	}
     }
+  father_process_action(son_pid);
   /* if (!my_strcmp(cmd->command, "exit") && */
   /*     (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1) */
   /*   { */
