@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Jan  8 02:28:31 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 16:38:37 2016 Berdrigue BONGOLO BETO
+** Last update Fri Apr  8 09:30:46 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -52,6 +52,8 @@ char		*key_to_value(t_list *env, char *key)
 {
   t_list	*curr;
 
+  if (env == NULL || key == NULL)
+    return (NULL);
   curr = env;
   while (curr != NULL)
     {

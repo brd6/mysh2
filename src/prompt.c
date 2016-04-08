@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Mar 29 11:31:28 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 12:57:28 2016 Berdrigue BONGOLO BETO
+** Last update Fri Apr  8 09:36:07 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -40,8 +40,7 @@ void		show_prompt(t_mysh *mysh)
 {
   char		*env_pwd;
 
-  if (env_key_exist(mysh->my_env, "PWD") &&
-      (env_pwd = key_to_value(mysh->my_env, "PWD")))
+  if ((env_pwd = key_to_value(mysh->my_env, "PWD")))
     {
       set_prompt(mysh, env_pwd);
       my_putstr(g_prompt);
