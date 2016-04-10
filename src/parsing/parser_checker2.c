@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 12:21:23 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 13:04:54 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -34,6 +34,25 @@ int		check_next_operator(char *line)
   return (-1);
 }
 
+static int	init_check_next_command(char *end_char,
+					char *line,
+					int *i,
+					int end_cp[2])
+{
+  *end_char = (line[0] == '"' || line[0] == '\'') ? line[0] : ' ';
+  *i = 0;
+  if (*end_char == ' ' && (line[0] == ' ' || line[0] == '\t'))
+    return (-1);
+  end_cp[0] = 0;
+  end_cp[1] = 0;
+  if (*end_char != ' ' && (line[0] == *end_char || line[0] == '\t'))
+    {
+      *i = *i + 1;
+      set_nb_quote(end_cp, line[*i]);
+    }
+  return (0);
+}
+
 /*
 ** check if there are a command in the next line.
 ** return : the end position of command
@@ -53,12 +72,15 @@ int		check_next_command(char *line)
   end_cp[0] = (end_cp[1] = 0);
   if (end_char != ' ' && (line[0] == end_char || line[0] == '\t'))
     set_nb_quote(end_cp, line[i++]);
+  /* if ((bak_i = init_check_next_command(&end_char, line, &i, end_cp)) == -1) */
+  /*   return (-1); */
   while (line[i])
     {
       set_nb_quote(end_cp, line[i]);
       if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
-	  (line[i] == end_char) && (line[i + 1] == 0 ||
-				    (line[i + 1] != end_char || line[i + 1] != '\t')))
+	  (line[i] == end_char || (line[i] == '\t' && end_char == ' ' )) &&
+	  (line[i + 1] == 0 ||
+	   (line[i + 1] != end_char || line[i + 1] != '\t')))
 	{
 	  if (end_char != ' ' ||
 	      ((line[i] != ' ' && line[i] != '\t') &&
