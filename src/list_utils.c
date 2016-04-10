@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 28 19:37:16 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 00:10:05 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 14:42:16 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -26,4 +26,21 @@ void		print_list2_handler(void *data)
 int		find_key(char *data, char *data_ref)
 {
   return ((my_strstr(data, data_ref) != NULL) ? 0 : 1);
+}
+
+t_cmd		*alloc_cmd_list(t_list2 *parser_list)
+{
+  t_cmd		*cmd;
+  int		options_size;
+  int		redi_size;
+
+  if ((cmd = malloc(sizeof(*cmd))) == NULL)
+    return (NULL);
+  options_size = count_command_type(parser_list, TOKEN_OPTION, NULL) + 1;
+  if ((cmd->options = malloc(sizeof(*(cmd->options)) * options_size)) == NULL)
+    return (NULL);
+  redi_size = count_command_type(parser_list, TOKEN_UNKNOWN, &OPS[2]) + 1;
+  if ((cmd->redirect = malloc(sizeof(*(cmd->redirect)) * (redi_size))) == NULL)
+    return (NULL);
+  return (cmd);
 }

@@ -5,3 +5,5 @@ test/
 /*.o
 test*
 la_sur_mesure
+check_quote.c
+a.out

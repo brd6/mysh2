@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 11:29:21 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 14:52:44 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -45,6 +45,7 @@
 # define ERR_SETENV_VARNAME1 "setenv: Variable name must begin with a letter.\n"
 # define ERR_SETENV_VARNAME2 "setenv: Variable name must contain alphanumeric characters.\n"
 # define ERR_SETENV_MALLOC "setenv: Unable to set a new variable to the env\n"
+# define ERR_EXIT_EXPR_SYNTAX "exit: Expression Syntax.\n"
 # define FLG_FILE_PERM (S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR)
 # define FLG_FILE_CWRITE (O_WRONLY | O_TRUNC | O_CREAT)
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)

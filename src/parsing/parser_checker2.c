@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 13:04:54 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 14:27:21 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -37,18 +37,24 @@ int		check_next_operator(char *line)
 static int	init_check_next_command(char *end_char,
 					char *line,
 					int *i,
-					int end_cp[2])
+					int *bak_i)
 {
   *end_char = (line[0] == '"' || line[0] == '\'') ? line[0] : ' ';
   *i = 0;
-  if (*end_char == ' ' && (line[0] == ' ' || line[0] == '\t'))
-    return (-1);
-  end_cp[0] = 0;
-  end_cp[1] = 0;
-  if (*end_char != ' ' && (line[0] == *end_char || line[0] == '\t'))
+  *bak_i = 0;
+}
+
+static int	check_cmd_end(char end_char, char *line, int *i)
+{
+  if ((end_char == ' ' && my_get_char_pos(OPS, line[*i + 1]) != -1) ||
+      (line[*i] == end_char || (line[*i] == '\t' && end_char == ' ')) &&
+      (line[*i + 1] == 0 || (line[*i + 1] != end_char || line[*i + 1] != '\t')))
     {
-      *i = *i + 1;
-      set_nb_quote(end_cp, line[*i]);
+      if (end_char != ' ' ||
+	  ((line[*i] != ' ' && line[*i] != '\t') &&
+	   my_get_char_pos(OPS, line[*i]) == -1))
+	*i = *i + 1;
+      return (1);
     }
   return (0);
 }
@@ -64,30 +70,17 @@ int		check_next_command(char *line)
   int		end_cp[2];
   int		bak_i;
 
-  end_char = (line[0] == '"' || line[0] == '\'') ? line[0] : ' ';
-  i = 0;
+  init_check_next_command(&end_char, line, &i, &bak_i);
   if (end_char == ' ' && (line[0] == ' ' || line[0] == '\t'))
     return (-1);
-  bak_i = i;
   end_cp[0] = (end_cp[1] = 0);
   if (end_char != ' ' && (line[0] == end_char || line[0] == '\t'))
     set_nb_quote(end_cp, line[i++]);
-  /* if ((bak_i = init_check_next_command(&end_char, line, &i, end_cp)) == -1) */
-  /*   return (-1); */
   while (line[i])
     {
       set_nb_quote(end_cp, line[i]);
-      if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
-	  (line[i] == end_char || (line[i] == '\t' && end_char == ' ' )) &&
-	  (line[i + 1] == 0 ||
-	   (line[i + 1] != end_char || line[i + 1] != '\t')))
-	{
-	  if (end_char != ' ' ||
-	      ((line[i] != ' ' && line[i] != '\t') &&
-	       my_get_char_pos(OPS, line[i]) == -1))
-	    i++;
-	  break;
-	}
+      if (check_cmd_end(end_char, line, &i))
+	break;
       if (line[i] == '"' || line[i] == '\'' &&
 	  (end_cp[0] % 2 != 0 || end_cp[1] % 2 != 0))
 	bak_i = i;

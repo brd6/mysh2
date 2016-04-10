@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Sun Apr 10 11:35:58 2016 Berdrigue BONGOLO BETO
+## Last update Sun Apr 10 14:47:36 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -25,6 +25,9 @@ SRCS	= 	src/main.c \
 		src/parsing/parser_errors.c \
 		src/parsing/parser_checker2.c \
 		src/parsing/parser_utils.c \
+		src/parsing/generate_commands_list.c \
+		src/parsing/generate_commands_list_utils.c \
+		src/parsing/generate_commands_list_utils2.c \
 		src/list_utils.c \
 		src/env_util.c \
 		src/env_util2.c \
@@ -37,7 +40,6 @@ SRCS	= 	src/main.c \
 		src/builtins/builtin_unsetenv.c \
 		src/exec_multi_pipes.c \
 		src/exec_simple_cmd.c \
-		src/parsing/generate_commands_list.c \
 		src/my_heredoc.c \
 		src/exec_utils.c \
 		src/fork_action.c \

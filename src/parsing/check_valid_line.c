@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 12:48:41 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 14:57:44 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -62,7 +62,7 @@ static int	check_last_redirection(t_list2 *list)
   return (1);
 }
 
-void		delete_unless_operator_at_end(t_list2 **list)
+static void	delete_unless_operator_at_end(t_list2 **list)
 {
   t_parser	*parser;
 

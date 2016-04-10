@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 03:48:59 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 11:33:52 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 15:00:23 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -13,7 +13,7 @@
 #include "mylist.h"
 #include "parser.h"
 
-int		is_operators(char *str)
+static int	is_operators(char *str)
 {
   if (!my_strcmp(str, OP_PIPE) ||
       !my_strcmp(str, OP_AND) ||
@@ -25,7 +25,7 @@ int		is_operators(char *str)
   return (0);
 }
 
-int		check_op_pipe(t_list2 *list, char *str)
+static int	check_op_pipe(t_list2 *list, char *str)
 {
   t_list2	*tmp;
   t_parser	*prev_token;
@@ -66,7 +66,7 @@ int		check_str_operator(t_list2 *list, char *str)
   return (1);
 }
 
-int		check_str_command(t_list2 *list, char *str)
+static int		check_str_command(t_list2 *list, char *str)
 {
   if (list == NULL ||
       !check_str_operator(list, str) ||
@@ -75,7 +75,7 @@ int		check_str_command(t_list2 *list, char *str)
   return (0);
 }
 
-int		check_str_option(t_list2 *list, char *str)
+static int		check_str_option(t_list2 *list, char *str)
 {
   if (list != NULL && check_str_command(list->prev, str))
     return (1);

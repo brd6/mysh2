@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 12:26:45 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 14:46:20 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -13,103 +13,33 @@
 #include "parser.h"
 #include "mysh.h"
 
+static void	init_fill_cmd_list(int *i, int *j, t_cmd *cmd)
+{
+  *i = 0;
+  *j = 0;
+  cmd->is_pipe_line = 0;
+  cmd->command = NULL;
+}
+
+static int	fill_cmd_list_stop_cond(t_parser *parser, t_list2 *tmp)
+{
+  if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
+    {
+      tmp = tmp->prev;
+      return (1);
+    }
+  return (0);
+}
+
 /*
-** Count a type of command in the list
-** @parser_list : a doubled linked list containing the tokens and their type
-** return : number of type (+ 1 for option type)
+** Fill the list of command for execution and
+** check also for ambigous redirection
+** @cmd : current cmd info
+** @parser_list : list of others cmd
+** @list : final cmd simple list
+** @is_redir_err : for redirection error
+** return : double linked list representative list of commands to execute
 */
-static int	count_command_type(t_list2 *parser_list,
-				   int type,
-				   char *ops)
-{
-  int		i;
-  t_list2	*tmp;
-  t_parser	*parser;
-
-  i = 0;
-  tmp = parser_list;
-  while (tmp != NULL)
-    {
-      parser = ((t_parser *)(tmp->data));
-      if (parser != NULL &&
-	  parser->type == TOKEN_OPERATOR &&
-	  parser->token[0] == OP_AND[0])
-	break;
-      if (parser->type == type ||
-	  (ops != NULL &&
-	   type == TOKEN_UNKNOWN &&
-	   my_get_char_pos(ops, parser->token[0]) != -1))
-	{
-	  /* if (type == TOKEN_UNKNOWN) */
-	  /* printf("! %s\n", ((t_parser *)(tmp->next->data))->token); */
-	  i++;
-	}
-      tmp = tmp->prev;
-    }
-  /* if (type == TOKEN_UNKNOWN && ops[0] == '|') */
-  /*   { */
-  /*     printf("=> %s\n", parser->token); */
-  /*     printf("=> %d\n", i); */
-  /*   } */
-  return ((type == TOKEN_OPTION) ? i + 1 : i);
-}
-
-static t_cmd	*alloc_cmd_list(t_list2 *parser_list)
-{
-  t_cmd		*cmd;
-  int		options_size;
-  int		redi_size;
-
-  if ((cmd = malloc(sizeof(*cmd))) == NULL)
-    return (NULL);
-  options_size = count_command_type(parser_list, TOKEN_OPTION, NULL) + 1;
-  if ((cmd->options = malloc(sizeof(*(cmd->options)) * options_size)) == NULL)
-    return (NULL);
-  redi_size = count_command_type(parser_list, TOKEN_UNKNOWN, &OPS[2]) + 1;
-  if ((cmd->redirect = malloc(sizeof(*(cmd->redirect)) * (redi_size))) == NULL)
-    return (NULL);
-  return (cmd);
-}
-
-static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
-{
-  t_list2	*tmp;
-  t_parser	*parser;
-
-  tmp = parser_list;
-  while (tmp != NULL)
-    {
-      parser = ((t_parser *)(tmp->data));
-      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
-	{
-	  tmp = tmp->prev;
-	  break;
-	}
-      tmp = tmp->prev;
-    }
-  return (tmp);
-}
-
-char		*extract_command(char *line)
-{
-  char		*cmd;
-  int		i;
-  int		j;
-
-  if ((cmd = malloc(sizeof(*cmd) * (my_strlen(line) + 1))) == NULL)
-    exit_on_error(ERR_MALLOC);
-  i = 0;
-  j = 0;
-  if (line[i] == '"' || line[i] == '\'')
-    i++;
-  else
-    return (line);
-  while (line[i] != '"' && line[i] != '\'')
-    cmd[j++] = line[i++];
-  cmd[j] = 0;
-  return (cmd);
-}
-
 static t_list2	*fill_cmd_list(t_cmd *cmd,
 			       t_list2 *parser_list,
 			       t_list **list,
@@ -121,56 +51,24 @@ static t_list2	*fill_cmd_list(t_cmd *cmd,
   int		j;
 
   tmp = parser_list;
-  i = 0;
-  j = 0;
-  cmd->is_pipe_line = 0;
-  cmd->command = NULL;
+  init_fill_cmd_list(&i, &j, cmd);
   while (tmp != NULL)
     {
       parser = ((t_parser *)(tmp->data));
-      if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
-	{
-	  tmp = tmp->prev;
-	  break;
-	}
+      if (fill_cmd_list_stop_cond(parser, tmp))
+	break;
       if (parser->type == TOKEN_COMMAND)
-	{
-	  if (parser->token[0] == '\'' || parser->token[0] == '"')
-	    cmd->options[i++] = extract_command(parser->token);
-	  else
-	    cmd->options[i++] = epur_str(parser->token, " \t", -1);
-	}
+	generate_cmd_token_command(parser, cmd, &i);
       else if (parser->type == TOKEN_OPTION)
 	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&
       	       my_get_char_pos(&OPS[2], parser->token[0]) != -1)
-      	{
-	  cmd->redirect[j].type = my_strdup(parser->token);
-	  parser = ((t_parser *)(tmp->prev->data));
-      	  cmd->redirect[j].is_at_begin = (j == 0 && i == 0);
-      	  cmd->redirect[j++].file = my_strdup(parser->token);
-	  tmp = tmp->prev;
-      	}
+	  generate_cmd_token_operator(tmp, cmd, i, &j);
       tmp = tmp->prev;
     }
-  cmd->command = cmd->options[0];
   cmd->options[i] = NULL;
-  cmd->redirect[j].file = NULL;
-
-  // check for ambiguous redirection
-  if (j > 1 && !my_strcmp(cmd->redirect[0].type, cmd->redirect[1].type))
-    {
-      if (cmd->redirect[1].type[0] == OP_R_REDIRECT[0])
-	my_puterr(ERROR_4);
-      else
-	my_puterr(ERROR_5);
-      list = NULL;
-      *is_redir_err = 1;
-      return (NULL);
-    }
-  /* return (NULL); */
-  /* if (tmp != NULL && tmp->prev != NULL) */
-  /*   tmp = tmp->prev; */
+  if (!generate_cmd_check_ambiguous_redi(j, cmd, list, is_redir_err))
+    return (NULL);
   return (tmp);
 }
 
@@ -194,17 +92,11 @@ static t_list2	*add_to_cmd_list(t_list2 *parser_list,
       cmd->options = NULL;
       cmd->command = NULL;
       parser_list = goto_next_cmd_in_list(parser_list);
-      /* parser_list = parser_list->prev; */
     }
   else
     parser_list = fill_cmd_list(cmd, parser_list, list, &is_redir_err);
-
   if (is_redir_err)
     return (NULL);
-  /* // go to the next cmd (after a ";" operator) */
-  /* if (parser_list != NULL && parser_list->prev != NULL) */
-  /*   parser_list = parser_list->prev; */
-  // add
   my_add_elem_in_list_end(list, cmd);
   return (parser_list);
 }
