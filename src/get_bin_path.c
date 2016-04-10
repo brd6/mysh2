@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:18:28 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 15:21:08 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:42:57 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -35,7 +35,6 @@ char		*get_bin_path_search(char **path, char *bin)
   while (path[i])
     {
       correct_bin = concat_two_str(path[i], bin, "/");
-      /* printf("sd : %s\n", correct_bin); */
       file_stat = my_stat(correct_bin);
       if (!access(correct_bin, F_OK | X_OK) && S_ISREG(file_stat.st_mode))
 	return (correct_bin);

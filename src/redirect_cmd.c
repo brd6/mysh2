@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 18:50:41 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 18:56:26 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:42:46 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -62,16 +62,10 @@ int		redirect_cmd(t_cmd *cmd)
     {
       if (cmd->redirect[i].type[0] == OP_L_REDIRECT[0] &&
 	  !redirect_left(cmd->redirect[i].type, cmd->redirect[i].file))
-	{
-	  /* printf("heredoc\n"); */
-	  return (0);
-	}
+	return (0);
       else if (cmd->redirect[i].type[0] == OP_R_REDIRECT[0] &&
 	       !redirect_right(cmd->redirect[i].type, cmd->redirect[i].file))
-	{
-	  // exec > redirection
-	  return (0);
-	}
+	return (0);
       i++;
     }
   return (1);

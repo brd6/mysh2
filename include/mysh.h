@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:52:44 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:27:51 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -52,6 +52,7 @@
 # define HEREDOC_TMP1 "/tmp/.mysh_heredoc_%pid%"
 # define HEREDOC_TMP2 ".mysh_heredoc_%pid%"
 # define EXIT_MSG "exit\n"
+# define MAX_CMD_LEN 1024
 
 # include "mylist.h"
 # include "parser.h"

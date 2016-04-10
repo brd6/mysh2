@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:57:44 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:27:41 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -80,6 +80,8 @@ t_list		*check_valid_line(char *line)
   int		j;
   char		*str_cmd;
 
+  if (my_strlen(line) > MAX_CMD_LEN)
+    return (NULL);
   if ((list = parsing_line(line)) == NULL)
     return (NULL);
   delete_unless_operator_at_end(&list);

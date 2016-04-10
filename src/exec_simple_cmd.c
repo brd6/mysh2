@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:08:23 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 20:35:53 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:37:34 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -13,7 +13,7 @@
 #include "my.h"
 #include "mysh.h"
 
-int		execute_cmd_system(t_mysh *mysh,
+static int	execute_cmd_system(t_mysh *mysh,
 				   t_cmd *cmd,
 				   t_my_builtin *builtins)
 {
@@ -26,7 +26,6 @@ int		execute_cmd_system(t_mysh *mysh,
     son_process_action(mysh, cmd, builtins);
   else
     son_status = father_process_action(son_pid);
-  /* printf("son status: %d\n", son_status); */
   return (GO_ON);
 }
 
@@ -34,24 +33,13 @@ int		exec_simple_cmd(t_mysh *mysh,
 				t_cmd *cmd,
 				t_my_builtin *builtins)
 {
-  // is_at_begin a check avant (redirection avant)
   int		builtin_index;
 
-  /* printf("command:%s\n", cmd->command); */
-  /* printf("command:%s %s\n", cmd->options[0], cmd->options[1]); */
-  /* exec_cmd_system(); */
   if (my_strcmp(cmd->command, "exit") &&
       (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
-    {
-      return (builtins[builtin_index].func(mysh, cmd));
-    }
+    return (builtins[builtin_index].func(mysh, cmd));
   else if (my_strcmp(cmd->command, "exit") &&
 	   execute_cmd_system(mysh, cmd, builtins) == EXIT_PROG)
-    {
-      return (EXIT_PROG);
-    }
-  /* if ((/\*!my_strcmp(cmd->command, "exit") ||  *\/!my_strcmp(cmd->command, "cd"))&& */
-  /*     (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1) */
-  /*   return (builtins[builtin_index].func(mysh, cmd)); */
+    return (EXIT_PROG);
   return (GO_ON);
 }

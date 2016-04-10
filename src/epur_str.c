@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 28 22:30:37 2016 Berdrigue BONGOLO BETO
-** Last update Mon Apr  4 21:23:27 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:47:44 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -37,6 +37,17 @@ static int	set_first_char(char *to_remove,
   return (i);
 }
 
+static char	*init_epur_str(char *str, int *j, int *str_len)
+{
+  char		*new_str;
+
+  if ((new_str = malloc(sizeof(*str) * (my_strlen(str) + 1))) == NULL)
+    return (NULL);
+  *j = 0;
+  *str_len = my_strlen(str);
+  return (new_str);
+}
+
 char		*epur_str(char *str, char *to_remove, int replace_with_space)
 {
   int		i;
@@ -44,10 +55,8 @@ char		*epur_str(char *str, char *to_remove, int replace_with_space)
   int		j;
   int		str_len;
 
-  if ((new_str = malloc(sizeof(*str) * (my_strlen(str) + 1))) == NULL)
+  if ((new_str = init_epur_str(str, &j, &str_len)) == NULL)
     return (NULL);
-  j = 0;
-  str_len = my_strlen(str);
   if (replace_with_space != -1)
     i = set_first_char(to_remove, str, new_str, &j);
   else
