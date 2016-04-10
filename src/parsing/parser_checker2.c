@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 23:46:57 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 12:21:23 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -57,14 +57,13 @@ int		check_next_command(char *line)
     {
       set_nb_quote(end_cp, line[i]);
       if ((end_char == ' ' && my_get_char_pos(OPS, line[i + 1]) != -1) ||
-	  (line[i] == end_char || line[i] == '\t') && (line[i + 1] == 0 ||
-						       (line[i + 1] != end_char || line[i + 1] != '\t')))
+	  (line[i] == end_char) && (line[i + 1] == 0 ||
+				    (line[i + 1] != end_char || line[i + 1] != '\t')))
 	{
 	  if (end_char != ' ' ||
 	      ((line[i] != ' ' && line[i] != '\t') &&
 	       my_get_char_pos(OPS, line[i]) == -1))
 	    i++;
-	  /* printf("checker2 : '%c' %d\n", line[i], i); */
 	  break;
 	}
       if (line[i] == '"' || line[i] == '\'' &&

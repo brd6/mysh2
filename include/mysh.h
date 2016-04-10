@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Thu Apr  7 19:26:32 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 11:29:21 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -34,7 +34,6 @@
 # define ERR_SEGMENTATION_FAULT "Segmentation Fault\n"
 # define ERR_FLOATING_PTS_EXCP "Floating point exception\n"
 # define ERR_ENV_PATH "There aren't PATH in the env variable\n"
-# define EXIT_MSG "exit\n"
 # define ERR_OPEN_FILE "Unable to open file\n"
 # define ERR_DUP2 "dup2 error\n"
 # define ERR_PIPE "pipe error\n"
@@ -51,6 +50,7 @@
 # define FLG_FILE_CWRITE2 (O_WRONLY | O_APPEND | O_CREAT)
 # define HEREDOC_TMP1 "/tmp/.mysh_heredoc_%pid%"
 # define HEREDOC_TMP2 ".mysh_heredoc_%pid%"
+# define EXIT_MSG "exit\n"
 
 # include "mylist.h"
 # include "parser.h"
@@ -79,6 +79,7 @@ int		is_space_str(char *str);
 char		*concat_two_str(char *str1, char *str2, char *c);
 int		find_key(char *data, char *data_ref);
 int		directory_exist(char *dirr);
+void		show_prompt(t_mysh *mysh);
 
 /*
 ** Env
@@ -87,8 +88,6 @@ int		env_key_exist(t_list *my_env, char *key);
 char		*key_to_value(t_list *env, char *key);
 int		env_key_exist_v(t_list *my_env, char *key);
 char		**env_list_to_array(t_list *my_env);
-
-void		show_prompt(t_mysh *mysh);
 
 /*
 ** Exec

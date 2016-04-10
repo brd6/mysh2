@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Fri Apr  8 10:03:18 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 12:11:15 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -29,17 +29,10 @@ void		mysh_loop(t_mysh *mysh)
       show_prompt(mysh);
       if (!check_null_line((line = get_next_line(0))))
 	break;
-      // check_correct_line
-      if (!is_space_str(line) && (cmds = check_valid_line(line)) != NULL)
-	{
-	  // record command in history list
-
-	  // process commmand execution
-	  if (exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
-	    {
-	      break;
-	    }
-	}
+      if (!is_space_str(line) &&
+	  (cmds = check_valid_line(line)) != NULL &&
+	  exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
+	break;
       free(line);
     }
   free(line);
@@ -59,7 +52,7 @@ int		main(int ac, char **av, char **envn)
     {
       mysh.my_env = my_params_in_list(my_wordtab_count(envn), envn);
       if (mysh.my_env == NULL || !my_rev_list(&mysh.my_env))
-	return (my_putstr(ERR_MALLOC), 1);
+  	return (my_putstr(ERR_MALLOC), 1);
     }
   mysh_loop(&mysh);
   free_mysh(&mysh);

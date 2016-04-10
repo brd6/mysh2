@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Thu Apr  7 00:25:54 2016 Berdrigue BONGOLO BETO
+## Last update Sun Apr 10 11:35:58 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc -g3 # <=
@@ -20,6 +20,7 @@ SRCS	= 	src/main.c \
 		src/init_builtins.c \
 		src/utils.c \
 		src/parsing/check_valid_line.c \
+		src/parsing/check_valid_line_utils.c \
 		src/parsing/parser_checker.c \
 		src/parsing/parser_errors.c \
 		src/parsing/parser_checker2.c \

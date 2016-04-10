@@ -5,13 +5,21 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Fri Apr  8 10:46:44 2016 Berdrigue BONGOLO BETO
+** Last update Fri Apr  8 15:41:29 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
 #include <stdlib.h>
 #include "my.h"
 #include "mysh.h"
+
+static int	check_next_pipe_cmd(t_mysh *mysh ,t_cmd *cmd)
+{
+  char		*bin;
+
+  bin = get_bin_path(cmd->command, key_to_value(mysh->my_env, "PATH"));
+  return (bin != NULL && check_bin_permission(bin));
+}
 
 t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
 {

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 03:48:59 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr  5 15:26:46 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 11:33:52 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -53,7 +53,6 @@ int		check_str_operator(t_list2 *list, char *str)
     return (0);
   if (prev_token != NULL)
     {
-      // redirection check
       if (my_get_char_pos(&OPS[2], str[0]) != -1 &&
 	  prev_token->type == TOKEN_OPERATOR &&
 	  my_get_char_pos(OPS, str[0]) != -1)
@@ -64,11 +63,6 @@ int		check_str_operator(t_list2 *list, char *str)
       if (str[0] == OP_PIPE[0] && !check_op_pipe(list, str))
 	return (0);
     }
-  /* else if (prev_token == NULL && my_get_char_pos(&OPS[2], str[0]) != -1) */
-  /*   return (my_puterr(ERROR_2), 0); */
-  /*   (check_str_operator(list->prev, str) || */
-  /*    check_str_command(list->prev, str))) */
-  /* return (1); */
   return (1);
 }
 

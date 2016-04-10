@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr  5 17:55:00 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 12:26:45 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -90,6 +90,26 @@ static t_list2	*goto_next_cmd_in_list(t_list2 *parser_list)
   return (tmp);
 }
 
+char		*extract_command(char *line)
+{
+  char		*cmd;
+  int		i;
+  int		j;
+
+  if ((cmd = malloc(sizeof(*cmd) * (my_strlen(line) + 1))) == NULL)
+    exit_on_error(ERR_MALLOC);
+  i = 0;
+  j = 0;
+  if (line[i] == '"' || line[i] == '\'')
+    i++;
+  else
+    return (line);
+  while (line[i] != '"' && line[i] != '\'')
+    cmd[j++] = line[i++];
+  cmd[j] = 0;
+  return (cmd);
+}
+
 static t_list2	*fill_cmd_list(t_cmd *cmd,
 			       t_list2 *parser_list,
 			       t_list **list,
@@ -114,7 +134,12 @@ static t_list2	*fill_cmd_list(t_cmd *cmd,
 	  break;
 	}
       if (parser->type == TOKEN_COMMAND)
-	cmd->options[i++] = epur_str(parser->token, " \t", -1);
+	{
+	  if (parser->token[0] == '\'' || parser->token[0] == '"')
+	    cmd->options[i++] = extract_command(parser->token);
+	  else
+	    cmd->options[i++] = epur_str(parser->token, " \t", -1);
+	}
       else if (parser->type == TOKEN_OPTION)
 	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&

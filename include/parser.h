@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 00:31:47 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr  5 15:28:54 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 11:52:10 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef PARSER_H_
@@ -15,7 +15,6 @@
 # define TOKEN_COMMAND 1
 # define TOKEN_OPTION 2
 # define TOKEN_OPERATOR 3
-
 # define OPS ";|><"
 # define OP_PIPE "|"
 # define OP_AND ";"
@@ -23,7 +22,6 @@
 # define OP_RR_REDIRECT ">>"
 # define OP_L_REDIRECT "<"
 # define OP_LL_REDIRECT "<<"
-
 # define ERROR_1 "Invalid null command.\n"
 # define ERROR_2 "Missing name for redirect.\n"
 # define ERROR_3 "Unmatched \".\n"
@@ -63,6 +61,7 @@ int		check_next_operator(char *line);
 
 t_list		*generate_commands_list(t_list2 *parser);
 char		*parser_list_to_str(t_list2 *list);
+t_list2		*parsing_line(char *line);
 
 /*
 ** Print errors
