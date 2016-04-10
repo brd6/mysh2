@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:46:20 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:16:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -21,11 +21,11 @@ static void	init_fill_cmd_list(int *i, int *j, t_cmd *cmd)
   cmd->command = NULL;
 }
 
-static int	fill_cmd_list_stop_cond(t_parser *parser, t_list2 *tmp)
+static int	fill_cmd_list_stop_cond(t_parser *parser, t_list2 **tmp)
 {
   if (parser->type == TOKEN_OPERATOR && parser->token[0] == OP_AND[0])
     {
-      tmp = tmp->prev;
+      *tmp = (*tmp)->prev;
       return (1);
     }
   return (0);
@@ -55,19 +55,19 @@ static t_list2	*fill_cmd_list(t_cmd *cmd,
   while (tmp != NULL)
     {
       parser = ((t_parser *)(tmp->data));
-      if (fill_cmd_list_stop_cond(parser, tmp))
-	break;
+      if (fill_cmd_list_stop_cond(parser, &tmp))
+  	break;
       if (parser->type == TOKEN_COMMAND)
-	generate_cmd_token_command(parser, cmd, &i);
+	generate_cmd_token_command(parser, &cmd, &i);
       else if (parser->type == TOKEN_OPTION)
 	cmd->options[i++] = my_strdup(parser->token);
       else if (parser->type == TOKEN_OPERATOR &&
       	       my_get_char_pos(&OPS[2], parser->token[0]) != -1)
-	  generate_cmd_token_operator(tmp, cmd, i, &j);
+	generate_cmd_token_operator(&tmp, &cmd, i, &j);
       tmp = tmp->prev;
     }
   cmd->options[i] = NULL;
-  if (!generate_cmd_check_ambiguous_redi(j, cmd, list, is_redir_err))
+  if (!generate_cmd_check_ambiguous_redi(j, &cmd, list, is_redir_err))
     return (NULL);
   return (tmp);
 }

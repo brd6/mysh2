@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr 10 13:14:27 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:44:08 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:15:55 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -34,15 +34,15 @@ char		*extract_command(char *line)
 }
 
 int		generate_cmd_check_ambiguous_redi(int j,
-						  t_cmd *cmd,
+						  t_cmd **cmd,
 						  t_list **list,
 						  int *is_redir_err)
 {
-  cmd->command = cmd->options[0];
-  cmd->redirect[j].file = NULL;
-  if (j > 1 && !my_strcmp(cmd->redirect[0].type, cmd->redirect[1].type))
+  (*cmd)->command = (*cmd)->options[0];
+  (*cmd)->redirect[j].file = NULL;
+  if (j > 1 && !my_strcmp((*cmd)->redirect[0].type, (*cmd)->redirect[1].type))
     {
-      if (cmd->redirect[1].type[0] == OP_R_REDIRECT[0])
+      if ((*cmd)->redirect[1].type[0] == OP_R_REDIRECT[0])
 	my_puterr(ERROR_4);
       else
 	my_puterr(ERROR_5);
@@ -53,29 +53,30 @@ int		generate_cmd_check_ambiguous_redi(int j,
   return (1);
 }
 
-void		generate_cmd_token_command(t_parser *parser, t_cmd *cmd, int *i)
+void		generate_cmd_token_command(t_parser *parser,
+					   t_cmd **cmd,
+					   int *i)
 {
   if (parser->token[0] == '\'' || parser->token[0] == '"')
-    cmd->options[(*i)++] = extract_command(parser->token);
+    (*cmd)->options[(*i)++] = extract_command(parser->token);
   else
-    cmd->options[(*i)++] = epur_str(parser->token, " \t", -1);
+    (*cmd)->options[(*i)++] = epur_str(parser->token, " \t", -1);
 }
 
-void		generate_cmd_token_operator(t_list2 *tmp,
-					    t_cmd *cmd,
+void		generate_cmd_token_operator(t_list2 **tmp,
+					    t_cmd **cmd,
 					    int i,
 					    int *j)
 {
   t_parser	*parser;
 
-  parser = ((t_parser *)(tmp->data));
-  cmd->redirect[*j].type = my_strdup(parser->token);
-  parser = ((t_parser *)(tmp->prev->data));
-  cmd->redirect[*j].is_at_begin = (j == 0 && i == 0);
-  cmd->redirect[(*j)++].file = my_strdup(parser->token);
-  tmp = (tmp)->prev;
+  parser = ((t_parser *)((*tmp)->data));
+  (*cmd)->redirect[*j].type = my_strdup(parser->token);
+  parser = ((t_parser *)((*tmp)->prev->data));
+  (*cmd)->redirect[*j].is_at_begin = (*j == 0 && i == 0);
+  (*cmd)->redirect[(*j)++].file = my_strdup(parser->token);
+  *tmp = (*tmp)->prev;
 }
-
 
 /*
 ** Count a type of command in the list

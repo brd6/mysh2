@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 15:02:31 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 15:17:18 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -39,6 +39,7 @@ t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
   while (tmp != NULL)
     {
       cmd = ((t_cmd *)(tmp->data));
+      /* printf("%s\n", cmd->options[0]); */
       if (pipe(pipefd) == -1)
       	return (my_puterr(ERR_PIPE), NULL);
       builtin_index = is_builins_cmd(cmd->command, builtins);
@@ -49,15 +50,19 @@ t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
       	{
 	  close(pipefd[0]);
       	  dup2(fd_in, 0);
+	  /* close(fd_in); */
       	  if (tmp->next != NULL)
 	    {
 	      dup2(pipefd[1], 1);
 	      close(pipefd[1]);
 	    }
+      	  /* close(pipefd[0]); */
 	  if ((builtin_index = is_builins_cmd(cmd->command, builtins)) != -1)
 	    {
 	      if (!(tmp->next == NULL && !my_strcmp(cmd->command, "exit")))
 		builtins[builtin_index].func(mysh, cmd);
+	      /* if (builtins[builtin_index].func(mysh, cmd) == EXIT_PROG) */
+	      /* 	exit(2); */
 	      exit(0);
 	    }
 	  else
@@ -71,6 +76,14 @@ t_cmd		*loop_pipe(t_mysh *mysh, t_list *list, t_my_builtin *builtins)
       	}
     }
   father_process_action(son_pid);
+  /* if (!my_strcmp(cmd->command, "exit") && */
+  /*     (builtin_index = is_builins_cmd(cmd->command, builtins)) != -1) */
+  /*   { */
+  /*     printf("%d\n", end_with_exit); */
+  /*     /\* int devNull = open("/dev/null", O_WRONLY); *\/ */
+  /*     /\* dup2(devNull, 1); *\/ */
+  /*     return (builtins[builtin_index].func(mysh, cmd)); */
+  /*   } */
   return (cmd);
 }
 

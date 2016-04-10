@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 00:31:47 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 15:00:18 2016 Berdrigue BONGOLO BETO
+** Last update Sun Apr 10 16:16:22 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef PARSER_H_
@@ -61,15 +61,15 @@ t_list		*generate_commands_list(t_list2 *parser);
 char		*parser_list_to_str(t_list2 *list);
 t_list2		*parsing_line(char *line);
 int		generate_cmd_check_ambiguous_redi(int j,
-						  t_cmd *cmd,
+						  t_cmd **cmd,
 						  t_list **list,
 						  int *is_redir_err);
 void		generate_cmd_token_command(t_parser *parser,
-					   t_cmd *cmd,
+					   t_cmd **cmd,
 					   int *i);
 char		*extract_command(char *line);
-void		generate_cmd_token_operator(t_list2 *tmp,
-					    t_cmd *cmd,
+void		generate_cmd_token_operator(t_list2 **tmp,
+					    t_cmd **cmd,
 					    int i,
 					    int *j);
 t_cmd		*alloc_cmd_list(t_list2 *parser_list);
