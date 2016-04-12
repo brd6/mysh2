@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Tue Apr 12 17:00:31 2016 Berdrigue BONGOLO BETO
+## Last update Tue Apr 12 17:10:40 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc
@@ -31,16 +31,16 @@ SRCS	= 	src/main.c \
 		src/list_utils.c \
 		src/env_util.c \
 		src/env_util2.c \
-		src/exec_multi_cmd.c \
 		src/builtins/builtin_exit.c \
 		src/builtins/builtin_cd.c \
 		src/builtins/builtin_env.c \
 		src/builtins/builtin_setenv.c \
 		src/builtins/builtin_unsetenv.c \
-		src/exec_multi_pipes.c \
-		src/exec_simple_cmd.c \
+		src/exec/exec_multi_cmd.c \
+		src/exec/exec_multi_pipes.c \
+		src/exec/exec_simple_cmd.c \
+		src/exec/exec_utils.c \
 		src/my_heredoc.c \
-		src/exec_utils.c \
 		src/fork_action.c \
 		src/get_bin_path.c \
 		src/redirect_cmd.c \
