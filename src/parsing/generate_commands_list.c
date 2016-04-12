@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sat Apr  2 23:20:43 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:16:05 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:52:17 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -74,8 +74,7 @@ static t_list2	*fill_cmd_list(t_cmd *cmd,
 
 static t_list2	*add_to_cmd_list(t_list2 *parser_list,
 				 char *line,
-				 t_list **list,
-				 int i)
+				 t_list **list)
 {
   t_cmd		*cmd;
   int		is_redir_err;
@@ -118,7 +117,7 @@ t_list		*generate_commands_list(t_list2 *parser_list)
     parser_tmp = parser_tmp->next;
   i = 0;
   while (parser_tmp != NULL)
-    parser_tmp = add_to_cmd_list(parser_tmp, parser_tab[i++], &list, i);
+    parser_tmp = add_to_cmd_list(parser_tmp, parser_tab[i++], &list);
   free(parser_tmp);
   my_free_wordtab(parser_tab);
   return (list);

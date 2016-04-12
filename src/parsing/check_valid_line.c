@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 01:17:35 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:27:41 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:30:34 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -43,8 +43,7 @@ static int	last_redirection_after_cmd(t_list2 *list)
   if (list->next != NULL)
     {
       parser = (t_parser *)(list->data);
-      if (((parser->type == TOKEN_COMMAND ||
-	    parser->type == TOKEN_OPTION) &&
+      if (((parser->type == TOKEN_COMMAND || parser->type == TOKEN_OPTION) &&
 	   (parser = (t_parser *)(list->next->data)) != NULL &&
 	   parser->type == TOKEN_OPERATOR &&
 	   my_get_char_pos(&OPS[2], parser->token[0]) != -1) &&
@@ -73,12 +72,7 @@ static void	delete_unless_operator_at_end(t_list2 **list)
 
 t_list		*check_valid_line(char *line)
 {
-  int		i;
-  char		**tab_line;
   t_list2	*list;
-  int		ttype;
-  int		j;
-  char		*str_cmd;
 
   if (my_strlen(line) > MAX_CMD_LEN)
     return (NULL);

@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 16:21:07 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:27:21 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:50:54 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -34,7 +34,7 @@ int		check_next_operator(char *line)
   return (-1);
 }
 
-static int	init_check_next_command(char *end_char,
+static void	init_check_next_command(char *end_char,
 					char *line,
 					int *i,
 					int *bak_i)
@@ -47,8 +47,9 @@ static int	init_check_next_command(char *end_char,
 static int	check_cmd_end(char end_char, char *line, int *i)
 {
   if ((end_char == ' ' && my_get_char_pos(OPS, line[*i + 1]) != -1) ||
-      (line[*i] == end_char || (line[*i] == '\t' && end_char == ' ')) &&
-      (line[*i + 1] == 0 || (line[*i + 1] != end_char || line[*i + 1] != '\t')))
+      ((line[*i] == end_char || (line[*i] == '\t' && end_char == ' ')) &&
+       (line[*i + 1] == 0 || (line[*i + 1] != end_char ||
+			      line[*i + 1] != '\t'))))
     {
       if (end_char != ' ' ||
 	  ((line[*i] != ' ' && line[*i] != '\t') &&
@@ -81,7 +82,7 @@ int		check_next_command(char *line)
       set_nb_quote(end_cp, line[i]);
       if (check_cmd_end(end_char, line, &i))
 	break;
-      if (line[i] == '"' || line[i] == '\'' &&
+      if ((line[i] == '"' || line[i] == '\'') &&
 	  (end_cp[0] % 2 != 0 || end_cp[1] % 2 != 0))
 	bak_i = i;
       i++;

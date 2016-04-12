@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 18:05:39 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:37:16 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:58:46 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -37,7 +37,7 @@ static void	pipe_exec(t_cmd *cmd,
       exit(0);
     }
   else
-    son_process_action(mysh, cmd, builtins);
+    son_process_action(mysh, cmd);
 }
 
 static void	pipe_son_dup(int *pipefd, int *fd_in, t_list **tmp, int flag)
@@ -93,7 +93,6 @@ int		exec_multi_pipes(t_mysh *mysh,
 				 t_my_builtin *builtins,
 				 t_cmd **exit_cmd)
 {
-  t_cmd		*cmd;
   t_list	*list;
 
   if ((cmd2->line = my_str_replace("|", ";", cmd2->line, -1)) == NULL)

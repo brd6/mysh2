@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 18:50:41 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:42:46 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:57:59 2016 Berdrigue BONGOLO BETO
 */
 
 #include <sys/types.h>
@@ -14,12 +14,6 @@
 #include <unistd.h>
 #include "my.h"
 #include "mysh.h"
-
-static void	print_list_str(void *str)
-{
-  my_putstr((char *)str);
-  my_putchar('\n');
-}
 
 int		redirect_left(char *type, char *filename)
 {

@@ -5,10 +5,10 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Sun Apr 10 14:47:36 2016 Berdrigue BONGOLO BETO
+## Last update Tue Apr 12 15:21:30 2016 Berdrigue BONGOLO BETO
 ##
 
-CC	= 	gcc -g3 # <=
+CC	= 	gcc -g3
 
 RM	= 	rm -f
 
@@ -49,7 +49,7 @@ SRCS	= 	src/main.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 
-#CFLAGS	+=	-W -Wall -Werror -pedantic
+CFLAGS	+=	-W -Wall -Werror -pedantic
 CFLAGS	+=	-I./include/ -I./lib/my/include/ -I./lib/my_printf/include/
 
 LDFLAGS +=	-L./lib -lmy -L./lib/my_printf -lmyprintf

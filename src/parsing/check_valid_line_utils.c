@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr 10 11:35:37 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 14:27:40 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:44:05 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -15,13 +15,11 @@
 
 static void	init_parsing_line_var(int *i,
 				      t_list2 **list,
-				      char *str_cmd,
 				      int *j)
 {
   *i = 0;
   *list = NULL;
   *j = 0;
-  str_cmd = NULL;
 }
 
 /*
@@ -45,8 +43,8 @@ static char	*get_token(int *j,
 {
   if (((*j = check_next_operator(&line[i])) > -1 &&
        ((*ttype = TOKEN_OPERATOR))) ||
-      (*j = check_next_command(&line[i])) > -1 &&
-      ((*ttype = TOKEN_COMMAND)))
+      ((*j = check_next_command(&line[i])) > -1 &&
+       ((*ttype = TOKEN_COMMAND))))
     return (get_str_cmd(&line[i], *j));
   return (NULL);
 }
@@ -95,7 +93,8 @@ t_list2		*parsing_line(char *line)
   char		*str_cmd;
   t_list2	*list;
 
-  init_parsing_line_var(&i, &list, str_cmd, &j);
+  init_parsing_line_var(&i, &list, &j);
+  str_cmd = NULL;
   while (line[i])
     {
       str_cmd = get_token(&j, i, line, &ttype);

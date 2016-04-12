@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 27 03:48:59 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 15:00:23 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:48:39 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -30,6 +30,7 @@ static int	check_op_pipe(t_list2 *list, char *str)
   t_list2	*tmp;
   t_parser	*prev_token;
 
+  (void)(str);
   tmp = list;
   while (tmp != NULL)
     {
@@ -64,20 +65,4 @@ int		check_str_operator(t_list2 *list, char *str)
 	return (0);
     }
   return (1);
-}
-
-static int		check_str_command(t_list2 *list, char *str)
-{
-  if (list == NULL ||
-      !check_str_operator(list, str) ||
-      check_str_operator(list->prev, str))
-    return (1);
-  return (0);
-}
-
-static int		check_str_option(t_list2 *list, char *str)
-{
-  if (list != NULL && check_str_command(list->prev, str))
-    return (1);
-  return (0);
 }

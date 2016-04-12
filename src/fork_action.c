@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Apr  3 15:04:05 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:39:24 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:57:37 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -16,18 +16,15 @@
 #include "mysh.h"
 
 void		son_process_action(t_mysh *mysh,
-				   t_cmd *cmd,
-				   t_my_builtin *builtins)
+				   t_cmd *cmd)
 {
   int		res;
   char		**env;
   char		*bin;
-  int		builtin_index;
 
   if (((env = env_list_to_array(mysh->my_env)) == NULL))
     {
       free(env);
-      free(bin);
       exit(1);
     }
   if (!redirect_cmd(cmd))

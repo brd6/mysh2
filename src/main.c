@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 15:18:24 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:23:37 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -18,7 +18,6 @@ char		*g_prompt;
 
 void	mysh_loop(t_mysh *mysh)
 {
-  int		status;
   t_my_builtin	builtins[6];
   char		*line;
   t_list	*cmds;

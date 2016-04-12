@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Apr  6 20:45:54 2016 Berdrigue BONGOLO BETO
-** Last update Wed Apr  6 20:51:03 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 15:53:00 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -20,6 +20,7 @@ void		print_env(void *data)
 
 int		builtin_env(t_mysh *mysh, t_cmd *cmd)
 {
+  (void)(cmd);
   my_apply_on_list(mysh->my_env, print_env);
   return (1);
 }
