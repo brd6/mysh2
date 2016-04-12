@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 00:08:58 2016 Berdrigue BONGOLO BETO
-** Last update Tue Mar 29 10:47:28 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 17:01:48 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -15,5 +15,4 @@
 void		free_mysh(t_mysh *mysh)
 {
   my_free_list(&mysh->my_env);
-  free(g_prompt);
 }

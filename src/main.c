@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:57:42 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr 12 15:23:37 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 17:04:13 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -13,8 +13,6 @@
 #include "my.h"
 #include "get_next_line.h"
 #include "mysh.h"
-
-char		*g_prompt;
 
 void	mysh_loop(t_mysh *mysh)
 {
@@ -25,13 +23,13 @@ void	mysh_loop(t_mysh *mysh)
   init_builtins(builtins);
   while (1)
     {
-      show_prompt(mysh);
+      my_putstr(PROMPT);
       if (!check_null_line((line = get_next_line(0))))
 	break;
       if (!is_space_str(line) &&
-	  (cmds = check_valid_line(line)) != NULL &&
-	  exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
-	break;
+      	  (cmds = check_valid_line(line)) != NULL &&
+      	  exec_multi_cmd(mysh, cmds, builtins) == EXIT_PROG)
+      	break;
       free(line);
     }
   free(line);

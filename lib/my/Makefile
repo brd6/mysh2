@@ -5,7 +5,7 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Fri Oct 16 01:07:43 2015 berdrigue bongolo-beto
-## Last update Tue Mar 29 16:55:41 2016 Berdrigue BONGOLO BETO
+## Last update Tue Apr 12 16:33:47 2016 Berdrigue BONGOLO BETO
 ##
 
 CC	= 	gcc
@@ -18,8 +18,7 @@ CFLAGS	= 	-I./include
 
 NAME	= 	libmy.a
 
-SRCS	=	./convert_base.c \
-		./get_next_line.c \
+SRCS	=	./get_next_line.c \
 		./my_add_elem_in_list2_begin.c \
 		./my_add_elem_in_list2_end.c \
 		./my_add_elem_in_list_begin.c \
@@ -36,17 +35,11 @@ SRCS	=	./convert_base.c \
 		./my_find_elm_eq_in_list2.c \
 		./my_find_elm_eq_in_list.c \
 		./my_find_node_eq_in_list.c \
-		./my_find_prime_sup.c \
 		./my_free_list2.c \
 		./my_free_list.c \
 		./my_free_wordtab.c \
 		./my_get_char_pos.c \
-		./my_getnbr_base.c \
 		./my_getnbr.c \
-		./my_getstr_key.c \
-		./my_getstr_value.c \
-		./my_isneg.c \
-		./my_is_prime.c \
 		./my_itoa.c \
 		./my_list2_copy.c \
 		./my_list2_rev_copy.c \
@@ -59,10 +52,8 @@ SRCS	=	./convert_base.c \
 		./my_nbr_len.c \
 		./my_params_in_list2.c \
 		./my_params_in_list.c \
-		./my_power_rec.c \
 		./my_putchar.c \
 		./my_puterr.c \
-		./my_putnbr_base.c \
 		./my_put_nbr.c \
 		./my_putstr.c \
 		./my_rev_list2.c \
@@ -75,12 +66,8 @@ SRCS	=	./convert_base.c \
 		./my_rm_elem_in_list_end.c \
 		./my_rm_el_from_list2.c \
 		./my_rm_el_from_list.c \
-		./my_showmem.c \
-		./my_showstr.c \
 		./my_show_wordtab.c \
 		./my_sort_int_tab.c \
-		./my_square_root.c \
-		./my_strcapitalize.c \
 		./my_strcat.c \
 		./my_strchr.c \
 		./my_strcmp.c \
@@ -101,9 +88,7 @@ SRCS	=	./convert_base.c \
 		./my_str_replace.c \
 		./my_str_split.c \
 		./my_strstr.c \
-		./my_strswap.c \
 		./my_str_to_wordtab.c \
-		./my_strupcase.c \
 		./my_swap.c \
 		./my_wordtab_count.c \
 		./my_wordtab_search.c \
@@ -113,8 +98,6 @@ SRCS	=	./convert_base.c \
 		./stack_push.c \
 		./stack_show.c \
 		./stack_top.c \
-		./init_file.c \
-		./file.c \
 
 OBJS	= 	$(SRCS:.c=.o)
 

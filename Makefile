@@ -5,10 +5,10 @@
 ## Login   <bongol_b@epitech.net>
 ## 
 ## Started on  Tue Mar 15 13:13:34 2016 Berdrigue BONGOLO BETO
-## Last update Tue Apr 12 15:21:30 2016 Berdrigue BONGOLO BETO
+## Last update Tue Apr 12 17:00:31 2016 Berdrigue BONGOLO BETO
 ##
 
-CC	= 	gcc -g3
+CC	= 	gcc
 
 RM	= 	rm -f
 
@@ -31,7 +31,6 @@ SRCS	= 	src/main.c \
 		src/list_utils.c \
 		src/env_util.c \
 		src/env_util2.c \
-		src/prompt.c \
 		src/exec_multi_cmd.c \
 		src/builtins/builtin_exit.c \
 		src/builtins/builtin_cd.c \

@@ -5,16 +5,16 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Mar 21 00:24:16 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr 12 15:27:48 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 17:05:06 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
-#include "my_printf.h"
+#include "my.h"
 #include "mysh.h"
 
 void		sig_handler_sigint(int code)
 {
   (void)(code);
-  if (g_prompt != NULL)
-    my_printf("\n%s", g_prompt);
+  my_putchar('\n');
+  my_putstr(PROMPT);
 }

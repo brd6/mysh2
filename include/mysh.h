@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr 12 15:55:38 2016 Berdrigue BONGOLO BETO
+** Last update Tue Apr 12 17:04:35 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -53,6 +53,7 @@
 # define HEREDOC_TMP2 ".mysh_heredoc_%pid%"
 # define EXIT_MSG "exit\n"
 # define MAX_CMD_LEN 1024
+# define PROMPT "$> "
 
 # include "mylist.h"
 # include "parser.h"
@@ -69,8 +70,6 @@ typedef struct	s_my_builtin
   int		(*func)(t_mysh *mysh, t_cmd *cmd);
 }		t_my_builtin;
 
-extern char	*g_prompt;
-
 void		free_mysh(t_mysh *mysh);
 void		sig_handler_sigint(int code);
 void		sig_handler_heredoc(int code);
@@ -81,7 +80,6 @@ int		is_space_str(char *str);
 char		*concat_two_str(char *str1, char *str2, char *c);
 int		find_key(char *data, char *data_ref);
 int		directory_exist(char *dirr);
-void		show_prompt(t_mysh *mysh);
 
 /*
 ** Env
