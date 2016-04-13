@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Apr  1 16:43:46 2016 Berdrigue BONGOLO BETO
-** Last update Sun Apr 10 16:20:03 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:48:29 2016 Berdrigue BONGOLO BETO
 */
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -32,7 +32,7 @@ int		exec_multi_cmd(t_mysh *mysh,
 			       t_my_builtin *builtins)
 {
   t_list	*tmp;
-  t_cmd		*exit_cmd;;
+  t_cmd		*exit_cmd;
   int		builtin_index;
 
   tmp = cmd;
