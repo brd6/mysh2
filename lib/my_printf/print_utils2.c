@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Mon Nov  9 16:20:30 2015 berdrigue bongolo-beto
-** Last update Sun Jan 24 19:27:04 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:04:44 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -46,6 +46,7 @@ void	check_width(int *width, int cp)
 
 void	check_width_and_precision(int *wd, int *lp, int nbr, t_pf_format *ptf)
 {
+  (void)(ptf);
   if (*lp > my_nbr_len_x(nbr))
     *lp = *lp - my_nbr_len_x(nbr);
   else
@@ -58,6 +59,7 @@ void	check_width_and_precision(int *wd, int *lp, int nbr, t_pf_format *ptf)
 
 void	check_width_and_precision2(int *wd, int *lp, char *s, t_pf_format *ptf)
 {
+  (void)(ptf);
   if (*lp > my_strlen_x(s))
     *lp = *lp - my_strlen_x(s);
   else

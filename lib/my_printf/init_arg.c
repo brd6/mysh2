@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Nov  4 11:19:58 2015 berdrigue bongolo-beto
-** Last update Sun Jan 24 19:31:29 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:58:59 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -52,6 +52,7 @@ void	init_field_width(char *format, int *i, int *var_set, t_pf_format *pt_f)
 
 void	init_precision(char *format, int *i, int *var_set, t_pf_format *pt_f)
 {
+  (void)(var_set);
   if (format[*i - 1] == '.' && format[*i] != '*')
     {
       pt_f->precision = get_str_nbr(format, i);

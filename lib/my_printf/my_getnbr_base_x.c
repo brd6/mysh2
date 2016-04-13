@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Oct  6 11:22:12 2015 berdrigue bongolo-beto
-** Last update Sun Feb 21 18:26:51 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:07:39 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my_printf.h"
@@ -31,8 +31,6 @@ int	my_check_base(char *base)
 {
   int	i;
   int	j;
-  char	c;
-  int	base_len;
 
   i = 0;
   if (!my_strlen_x(base))

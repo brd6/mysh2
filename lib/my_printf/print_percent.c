@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Nov  8 17:06:20 2015 berdrigue bongolo-beto
-** Last update Thu Jan  7 23:43:53 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:03:47 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -13,6 +13,8 @@
 
 int	print_percent(va_list ap, t_pf_format *ptf_format)
 {
+  (void)(ap);
+  (void)(ptf_format);
   my_putchar_x('%');
   return (1);
 }

@@ -5,14 +5,13 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Dec 27 13:06:29 2015 berdrigue bongolo-beto
-** Last update Sun Mar 20 14:35:22 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:51:02 2016 Berdrigue BONGOLO BETO
 */
 
 #include "get_next_line.h"
 
 void		save_buff(int line_pos, char buff[READ_SIZE])
 {
-  int		i;
   int		j;
 
   if (line_pos < 0 || buff[0] == 0)

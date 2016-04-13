@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Oct  7 17:38:23 2015 berdrigue bongolo-beto
-** Last update Sat Mar 26 23:27:21 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:53:26 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -76,12 +76,10 @@ void	wordtab_cpy(char *str, char **dest)
   int	i;
   int	cp;
   int	start_pos;
-  int	end_pos;
 
   i = 0;
   cp = 0;
   start_pos = 0;
-  end_pos = 0;
   while (str[i])
     {
       if (is_word_pos(str, i, 1))

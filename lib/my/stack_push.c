@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Oct 25 16:15:54 2015 berdrigue bongolo-beto
-** Last update Mon Mar 14 00:07:38 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:55:34 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -13,10 +13,8 @@
 
 int		stack_push(t_list **stack, void *data)
 {
-  t_list        *prec;
-  int		i;
+  t_list	*prec;
 
-  i = 0;
   if ((prec = malloc(sizeof(*prec))) == NULL)
     return (0);
   if (my_list_size(*stack) == 0)

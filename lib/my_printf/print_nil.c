@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu Nov  5 23:18:55 2015 berdrigue bongolo-beto
-** Last update Thu Jan  7 23:44:07 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:02:57 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -13,5 +13,7 @@
 
 int	print_nil(va_list ap, t_pf_format *format)
 {
+  (void)(ap);
+  (void)(format);
   return (0);
 }

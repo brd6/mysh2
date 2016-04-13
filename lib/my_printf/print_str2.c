@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu Nov 12 10:54:51 2015 berdrigue bongolo-beto
-** Last update Thu Jan  7 23:43:33 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:07:14 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -43,6 +43,7 @@ int	print_str2(va_list ap, t_pf_format *ptf_format)
   char	*str;
   int	cp;
 
+  (void)(ptf_format);
   cp = 0;
   ((str = (char *)va_arg(ap, char *)) == 0) ? str = "(null)" : 0;
   cp = cp + print_mod_str(str);

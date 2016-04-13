@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Nov  4 16:07:30 2015 berdrigue bongolo-beto
-** Last update Sun Feb 21 18:18:15 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:01:55 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -37,7 +37,7 @@ int	nbr_precision_handler(int width, int len_p, int nbr, t_pf_format *ptf_f)
   int	cp;
 
   cp = 0;
-  if (my_get_char_pos_x(ptf_f->flags, '+') != -1 && nbr < 0 || nbr < 0)
+  if (my_get_char_pos_x(ptf_f->flags, '+') != -1 && (nbr < 0 || nbr < 0))
     {
       my_putchar_x('-');
       nbr = nbr * (-1);
@@ -57,7 +57,7 @@ int		pnbr_sd(t_pf_format *ptf_format, int *nbr, int width, int len_p)
 {
   int		cp;
   int		sign;
-  unsigned long	nbr2;
+  long		nbr2;
 
   cp = 0;
   set_mod_len_p(ptf_format, &width, &len_p, *nbr);

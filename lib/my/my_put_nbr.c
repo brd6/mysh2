@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Thu Oct  1 00:37:24 2015 berdrigue bongolo-beto
-** Last update Wed Feb 10 13:57:35 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:51:47 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my.h"
@@ -32,4 +32,5 @@ int	my_put_nbr(int nb)
 	  my_put_nbr(nb % 10);
 	}
     }
+  return (1);
 }

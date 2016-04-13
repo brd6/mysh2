@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Jan 24 19:27:47 2016 Berdrigue BONGOLO BETO
-** Last update Sun Jan 24 19:27:48 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:57:33 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
@@ -20,6 +20,7 @@ int	is_alpha_x(char c, int flag)
     return (c >= 'a' && c <= 'z');
   else if (flag == 2)
     return (c >= 'A' && c <= 'Z');
+  return (0);
 }
 
 int	is_num_x(char c, int flag)
@@ -28,6 +29,7 @@ int	is_num_x(char c, int flag)
     return (c >= '0' && c <= '9');
   else if (flag == 1)
     return (c >= '1' && c <= '9');
+  return (0);
 }
 
 int	cp_str_nbr(char *format, int start)

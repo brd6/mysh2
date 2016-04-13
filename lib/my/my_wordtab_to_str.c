@@ -5,30 +5,11 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Tue Jan 19 20:06:54 2016 Berdrigue BONGOLO BETO
-** Last update Sat Mar 12 14:06:17 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:55:02 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdlib.h>
 #include "my.h"
-
-void		wordtab_to_str_end1(char **args, int *k, int *j, int i)
-{
-  if (args[i][*k] != 0)
-    {
-      *(j)++;
-      *(k)++;
-    }
-}
-
-void		wordtab_to_str_end2(char **args, int *i, int *k, int *j)
-{
-  if (args[*i][*k] == 0)
-    {
-      *(j)++;
-      *k = 0;
-      *(i)++;
-    }
-}
 
 char		*my_wordtab_to_str(char **args, char sp)
 {

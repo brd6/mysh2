@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Fri Nov  6 22:12:15 2015 berdrigue bongolo-beto
-** Last update Fri Jan  8 01:49:13 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:02:15 2016 Berdrigue BONGOLO BETO
 */
 
 #include "my_printf.h"
@@ -57,7 +57,7 @@ void	nbr_limit_check(int *nbr, long *nbr2, int *sign)
   *sign = 1;
   if (*nbr == -2147483648)
     {
-      *nbr2 = (unsigned long)2147483648;
+      *nbr2 = 2147483648;
       *sign = 0;
     }
 }

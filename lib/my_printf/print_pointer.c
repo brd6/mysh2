@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Nov 11 18:09:42 2015 berdrigue bongolo-beto
-** Last update Thu Jan  7 23:43:46 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 08:05:23 2016 Berdrigue BONGOLO BETO
 */
 
 #include <stdarg.h>
@@ -14,9 +14,9 @@
 int		print_pointer(va_list ap, t_pf_format *ptf_format)
 {
   unsigned long	nbr;
-  char		*base;
   int		cp;
 
+  (void)(ptf_format);
   cp = 0;
   nbr = va_arg(ap, long);
   if (nbr == 0)

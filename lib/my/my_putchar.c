@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Wed Sep 30 10:21:41 2015 berdrigue bongolo-beto
-** Last update Wed Feb 10 13:45:12 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 07:51:25 2016 Berdrigue BONGOLO BETO
 */
 
 #include <unistd.h>
@@ -13,4 +13,5 @@
 int	my_putchar(char c)
 {
   write(1, &c, 1);
+  return (1);
 }
