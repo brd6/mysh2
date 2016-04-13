@@ -5,7 +5,7 @@
 ** Login   <bongol_b@epitech.net>
 **
 ** Started on  Sun Mar 20 21:55:09 2016 Berdrigue BONGOLO BETO
-** Last update Tue Apr 12 17:04:35 2016 Berdrigue BONGOLO BETO
+** Last update Wed Apr 13 11:39:37 2016 Berdrigue BONGOLO BETO
 */
 
 #ifndef MYSH_H_
@@ -13,19 +13,6 @@
 
 # define GO_ON 1
 # define EXIT_PROG 42
-# define WHITE	"\033[0m"
-# define RED	"\033[0;31m"
-# define GREEN	"\033[0;32m"
-# define YELLOW	"\033[1;33m"
-# define BLUE	"\033[0;34m"
-# define BBLUE2	"\033[0;36m"
-# define GRAY	"\033[0;37m"
-# define BOLD	"\033[1m"
-# define BWHITE	"\033[1;0m"
-# define BRED	"\033[1;31m"
-# define BGREEN	"\033[1;32m"
-# define BBLUE	"\033[1;34m"
-# define BCYAN	"\033[1;36m"
 # define ERR_MALLOC "Malloc error\n"
 # define ERR_FORK "Error : unable to create a new process\n"
 # define ERR_COMMAND_NOT_FOUND ": command not found.\n"
